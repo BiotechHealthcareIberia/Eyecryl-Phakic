@@ -70,7 +70,7 @@
 
         .img-frame {
             background: #fff; border: 1px solid #D1DBDB; padding: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; min-height: 200px; overflow: hidden;
+            width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; min-height: 180px; overflow: hidden;
         }
 
         .media-content { width: 100%; height: 100%; object-fit: contain; z-index: 10; }
@@ -117,7 +117,6 @@
 
         .floating-controls { position: fixed; bottom: 2rem; right: 2rem; z-index: 999; display: flex; flex-direction: column; gap: 0.75rem; }
 
-        /* Separadores del Ecosistema */
         .ecosystem-grid { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; height: 100%; gap: 0; }
         .ecosystem-item { padding: 3rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
         .ecosystem-item:not(:last-child)::after {
@@ -132,14 +131,14 @@
 </head>
 <body>
 
-<!-- BOTÓN GESTOR -->
+<!-- BOTONES FLOTANTES -->
 <div class="floating-controls">
     <button id="image-manager-toggle" class="bg-[#00A3A3] text-white px-8 py-4 rounded-full font-black shadow-2xl flex items-center gap-3 hover:scale-105 transition-all uppercase tracking-widest text-[10px]">
         <i data-lucide="camera"></i> <span>Gestor de Activos</span>
     </button>
 </div>
 
-<!-- PANEL GESTIÓN (REPARADO) -->
+<!-- PANEL GESTIÓN -->
 <div id="image-manager-panel">
     <div class="flex justify-between items-center mb-6 border-b pb-4">
         <div><h3 class="text-2xl font-black text-[#0A1F1F]">Editor Master</h3><p class="text-xs text-gray-400 font-bold uppercase mt-1 tracking-widest">Multimedia Manager</p></div>
@@ -148,7 +147,7 @@
     <div id="inputs-container"></div>
     <div class="mt-8 flex gap-4">
         <button onclick="clearAllImages()" class="flex-1 bg-gray-100 text-gray-500 py-4 rounded font-bold hover:bg-red-50 hover:text-red-600 transition-all text-[10px] uppercase">Borrar Datos</button>
-        <button onclick="document.getElementById('image-manager-panel').style.display='none'" class="flex-[2] bg-[#00A3A3] text-white py-4 rounded font-bold shadow-lg hover:bg-teal-700 transition-all uppercase text-[10px] tracking-widest">Cerrar</button>
+        <button onclick="document.getElementById('image-manager-panel').style.display='none'" class="flex-[2] bg-[#00A3A3] text-white py-4 rounded font-bold shadow-lg hover:bg-teal-700 transition-all uppercase text-[10px] tracking-widest">Finalizar</button>
     </div>
 </div>
 
@@ -159,8 +158,8 @@
         <div class="content-area !p-0">
             <div class="ecosystem-grid">
                 <div onclick="window.location.href='#section-cover'" class="ecosystem-item group cursor-pointer hover:bg-teal-50/30 transition-colors">
-                    <div class="flex flex-col h-full">
-                        <div class="mb-10"><span class="text-teal-500 font-black text-[10px] uppercase tracking-[0.3em] block">Surgery Line</span></div>
+                    <div class="flex flex-col h-full text-left">
+                        <div class="mb-10"><span class="text-teal-500 font-black text-[10px] uppercase tracking-[0.3em] block text-left">Surgery Line</span></div>
                         <div class="flex-grow">
                             <h3 class="text-2xl font-black text-medical-deep leading-tight mb-4">EYECRYL™<br>PHAKIC</h3>
                             <p class="text-[11px] text-text-muted leading-relaxed max-w-[220px]">Referente mundial en cirugía refractiva fáquica de cámara posterior.</p>
@@ -169,7 +168,7 @@
                     </div>
                 </div>
                 <div onclick="window.location.href='#section-trio'" class="ecosystem-item group cursor-pointer hover:bg-teal-50/30 transition-colors">
-                    <div class="flex flex-col h-full">
+                    <div class="flex flex-col h-full text-left">
                         <div class="mb-10 flex justify-between items-start"><span class="text-teal-500 font-black text-[10px] uppercase tracking-[0.3em] block">Premium Line</span><span class="badge-new">NUEVO</span></div>
                         <div class="flex-grow">
                             <h3 class="text-2xl font-black text-medical-deep leading-tight mb-4">OPTIFLEX™<br>TRIO PLUS</h3>
@@ -179,7 +178,7 @@
                     </div>
                 </div>
                 <div onclick="window.location.href='#section-xtense'" class="ecosystem-item group cursor-pointer hover:bg-purple-50/30 transition-colors">
-                    <div class="flex flex-col h-full">
+                    <div class="flex flex-col h-full text-left">
                         <div class="mb-10 flex justify-between items-start"><span class="text-teal-500 font-black text-[10px] uppercase tracking-[0.3em] block">EDOF Line</span><span class="badge-new">NUEVO</span></div>
                         <div class="flex-grow">
                             <h3 class="text-2xl font-black text-medical-deep leading-tight mb-4">OPTIFLEX™<br>XTENSE</h3>
@@ -195,13 +194,14 @@
     <!-- PÁGINA 2: PORTADA EYECRYL (SLOT REPARADO) -->
     <section id="section-cover" class="slide-container dark">
         <div class="flex flex-col lg:flex-row h-full items-center px-10 lg:px-24 py-12 gap-12">
-            <div class="flex-1 reveal">
+            <div class="flex-1 reveal text-left">
                 <p class="text-teal-400 font-bold tracking-[0.6em] text-[11px] mb-4 uppercase">Biotech Healthcare | Global Innovation</p>
                 <h1 class="text-5xl lg:text-7xl font-black leading-none mb-6 italic text-white uppercase tracking-tight">EYECRYL™<br>PHAKIC</h1>
                 <div class="h-1 w-20 bg-medical-accent mb-6"></div>
                 <p class="text-2xl lg:text-4xl font-light text-teal-100 tracking-wide mb-10 text-white">la arquitectura del equilibrio</p>
             </div>
             <div class="flex-1 w-full h-full reveal flex items-center justify-center">
+                <!-- ID DE CONTENEDOR SINCRONIZADO -->
                 <div class="img-frame bg-transparent border-teal-500/10 shadow-none p-0" id="slot-container-cover">
                     <div class="placeholder-box"><i data-lucide="image" class="w-20 h-20 text-teal-500 opacity-20"></i><p class="text-[10px] mt-4 font-bold uppercase text-teal-500/40">Portada Eyecryl Phakic</p></div>
                 </div>
@@ -216,17 +216,17 @@
                 <h2 class="text-4xl lg:text-5xl font-black text-medical-deep mb-2 uppercase tracking-tighter leading-none">ALCANCE MUNDIAL<br>E I+D EUROPEO</h2>
                 <div class="h-1 w-16 bg-medical-accent mb-12"></div>
                 <div class="grid grid-cols-2 gap-4 mb-8">
-                    <div class="bg-teal-50/50 p-6 border-l-4 border-medical-teal rounded-sm shadow-sm">
+                    <div class="bg-teal-50/50 p-6 border-l-4 border-medical-teal rounded-sm shadow-sm text-left">
                         <span class="block text-4xl font-black text-medical-deep">40+</span>
                         <p class="text-[9px] font-black uppercase text-medical-teal tracking-widest mt-1">Países Phakic</p>
                     </div>
-                    <div class="bg-teal-50/50 p-6 border-l-4 border-medical-teal rounded-sm shadow-sm">
+                    <div class="bg-teal-50/50 p-6 border-l-4 border-medical-teal rounded-sm shadow-sm text-left">
                         <span class="block text-4xl font-black text-medical-deep">100.000+</span>
-                        <p class="text-[9px] font-black uppercase text-medical-teal tracking-widest mt-1">Implantes Eyecryl™ Phakic</p>
+                        <p class="text-[9px] font-black uppercase text-medical-teal tracking-widest mt-1">Lentes Implantadas</p>
                     </div>
                 </div>
-                <div class="bg-white p-8 shadow-2xl rounded-sm border border-gray-100 space-y-6">
-                    <p class="text-lg font-bold text-medical-deep leading-snug italic">Consolidación global en el mercado de cirugía refractiva de cámara posterior.</p>
+                <div class="bg-white p-8 shadow-2xl rounded-sm border border-gray-100 space-y-6 text-left">
+                    <p class="text-lg font-bold text-medical-deep leading-snug italic">Líder en el mercado global de lentes fáquicas de cámara posterior.</p>
                     <div class="h-px bg-gray-100 w-full"></div>
                     <p class="text-lg font-bold text-medical-deep leading-snug text-medical-teal">Más de 60 millones de lentes pseudofáquicas Benz™ fabricadas.</p>
                 </div>
@@ -242,14 +242,14 @@
         <h2 class="slide-title">Protocolo y Técnica Quirúrgica</h2>
         <div class="content-area">
             <div class="grid grid-cols-12 gap-8 w-full items-start">
-                <div class="col-span-4 reveal space-y-4">
+                <div class="col-span-4 reveal space-y-4 text-left">
                     <div class="bg-white p-5 shadow-sm border-t-4 border-teal-500">
                         <h3 class="text-medical-deep font-black text-xs mb-3 uppercase tracking-widest">Indicaciones</h3>
-                        <ul class="medical-list"><li class="highlight-critical text-xs">ACD desde endotelio $\ge 2.8$ mm</li><li class="text-xs">Edad: 21 - 45 años. Estabilidad refractiva.</li></ul>
+                        <ul class="medical-list"><li class="highlight-critical text-xs">ACD desde endotelio $\ge 2.8$ mm</li><li class="text-xs text-left">Edad: 21 - 45 años. Estabilidad refractiva.</li></ul>
                     </div>
                     <div class="bg-white p-5 shadow-sm border-t-4 border-red-400">
                         <h3 class="text-medical-deep font-black text-xs mb-3 uppercase tracking-widest">Contraindicaciones</h3>
-                        <ul class="medical-list">
+                        <ul class="medical-list text-left">
                             <li class="text-red-600 font-bold text-[9px] uppercase tracking-tighter">ACD $< 2.8$ mm / Ángulos $< 35^\circ$</li>
                             <li class="text-[9px]">Glaucoma, Uveítis crónica/activa, Patología Cristalino/Retina.</li>
                             <li class="text-[9px]">Bajo recuento endotelial, Diabetes no controlada, Embarazo o lactancia.</li>
@@ -257,8 +257,8 @@
                     </div>
                 </div>
                 <div class="col-span-5 reveal">
-                    <div class="procedure-display">
-                        <h3 class="text-teal-400 font-black text-sm mb-8 uppercase tracking-[0.2em] border-b border-teal-900 pb-3 flex items-center gap-3"><i data-lucide="zap" class="w-5 h-5"></i> Técnica Quirúrgica</h3>
+                    <div class="procedure-display text-left">
+                        <h3 class="text-teal-400 font-black text-sm mb-8 uppercase border-b border-teal-900 pb-3 flex items-center gap-3"><i data-lucide="zap" class="w-5 h-5"></i> Técnica Quirúrgica</h3>
                         <div class="procedure-step-row"><div class="step-circle">1</div><p class="text-white font-bold text-xs">Incisión clara corneal de 2.8 mm a 3.0 mm.</p></div>
                         <div class="procedure-step-row"><div class="step-circle">2</div><p class="text-white font-bold text-xs">Metilcelulosa al 2% para protección endotelial.</p></div>
                         <div class="procedure-step-row"><div class="step-circle">3</div><p class="text-white font-bold text-xs">Cargado rápido en inyector asistido desechable.</p></div>
@@ -275,7 +275,7 @@
         <h2 class="slide-title">Parámetros del Sistema: Eyecryl™ Phakic</h2>
         <div class="content-area">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 w-full items-start">
-                <div class="reveal">
+                <div class="reveal text-left">
                     <table class="specs-table">
                         <tr><td>Material</td><td>BenzFlex 26</td></tr>
                         <tr><td>Índice de Refracción</td><td class="font-black text-medical-accent">1.462</td></tr>
@@ -285,7 +285,7 @@
                         <tr><td>Rango de Cilindro</td><td class="font-bold">Hasta +5.0 D</td></tr>
                     </table>
                     <div class="mt-8 bg-teal-50 p-6 border-l-4 border-medical-teal rounded-sm shadow-sm">
-                        <h4 class="text-medical-teal font-black text-[10px] uppercase mb-3">Plazos de Entrega Logística</h4>
+                        <h4 class="text-medical-teal font-black text-[10px] uppercase mb-3">Logística Global</h4>
                         <ul class="space-y-2 text-[11px] font-bold text-teal-900">
                             <li class="flex justify-between"><span>Esféricas Stock:</span> <span class="bg-teal-600 text-white px-2 py-0.5 rounded">24 Horas</span></li>
                             <li class="flex justify-between"><span>Tóricas Stock:</span> <span class="bg-teal-200 px-2 py-0.5 rounded">6 - 20 Días</span></li>
@@ -295,10 +295,10 @@
                 </div>
                 <div class="reveal space-y-4">
                     <div class="bg-white p-6 border border-gray-100 shadow-xl rounded-sm text-center">
-                        <h4 class="text-medical-deep font-black text-xs mb-4 uppercase tracking-widest text-center">Tallas del Sistema</h4>
-                        <div class="grid grid-cols-2 gap-3 text-center">
-                            <div class="bg-teal-600 text-white p-3 rounded"><p class="text-[9px] uppercase opacity-60">Stock</p><p class="text-[10px] font-bold">12.0 a 13.5 mm</p></div>
-                            <div class="bg-gray-100 p-3 rounded text-gray-600"><p class="text-[9px] uppercase opacity-60">Custom</p><p class="text-[10px] font-bold">11.0, 11.5 y 14.0 mm</p></div>
+                        <h4 class="text-medical-deep font-black text-xs mb-4 uppercase tracking-widest">Tallas del Sistema</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-teal-600 text-white p-4 rounded"><p class="text-[9px] font-black uppercase opacity-60">Stock</p><p class="text-xs font-bold leading-tight">12.0 a 13.5 mm</p></div>
+                            <div class="bg-gray-100 p-4 rounded text-gray-600"><p class="text-[9px] uppercase opacity-60">Custom</p><p class="text-xs font-bold leading-tight">11.0, 11.5 y 14.0 mm</p></div>
                         </div>
                     </div>
                     <div class="img-frame bg-white relative h-[180px]" id="slot-container-product-box"></div>
@@ -312,16 +312,16 @@
         <h2 class="slide-title">Estabilidad Quirúrgica: Dr. Lamarca</h2>
         <div class="content-area">
             <div class="grid grid-cols-12 gap-10 w-full items-center">
-                <div class="col-span-6 reveal space-y-4">
+                <div class="col-span-6 reveal space-y-4 text-left">
                     <div class="bg-white p-6 border-l-4 border-medical-accent shadow-xl rounded-sm">
-                        <p class="text-xs text-medical-deep font-bold mb-4">Validación multicéntrica de estabilidad en sulcus ciliar. Diseño monobloque con 4 puntos de apoyo.</p>
+                        <p class="text-xs text-medical-deep font-bold mb-4">Diseño monobloque con 4 puntos de apoyo en sulcus ciliar.</p>
                         <div class="flex justify-center gap-10 p-4 bg-gray-50 border border-teal-100 rounded">
                             <div class="axis-badge text-[11px] font-bold text-gray-700">$0^\circ, 30^\circ, 60^\circ$</div><div class="axis-badge text-[11px] font-bold text-gray-700">$90^\circ, 120^\circ, 150^\circ$</div>
                         </div>
                     </div>
                     <div class="bg-teal-900 p-6 rounded-lg text-white shadow-2xl border-b-4 border-teal-400">
-                        <h4 class="text-[10px] font-black uppercase text-teal-400 mb-2 tracking-widest">Mano Dominante y Ergonomía</h4>
-                        <p class="text-xs font-bold leading-relaxed mb-3 italic">"La ergonomía quirúrgica impacta directamente en el posicionamiento ideal del eje tórico."</p>
+                        <h4 class="text-[10px] font-black uppercase text-teal-400 mb-2">Impacto de la Ergonomía</h4>
+                        <p class="text-xs font-bold leading-relaxed mb-3 italic">"La ergonomía y la dominancia manual impactan directamente en la alineación del eje tórico."</p>
                         <div class="flex items-center gap-4 py-3 border-t border-white/10">
                             <div class="text-2xl font-black text-teal-300">p = 0.0016</div>
                             <p class="text-[9px] uppercase font-light opacity-80 leading-tight">Éxito total en alineación nasal (OD) y temporal (OI).</p>
@@ -330,51 +330,27 @@
                 </div>
                 <div class="col-span-6 reveal h-full flex flex-col gap-4">
                     <div class="img-frame bg-white relative h-1/2 shadow-inner" id="slot-container-sulcus-support"></div>
-                    <div class="img-frame bg-white relative h-1/2 shadow-inner" id="slot-container-lamarca-ergonomics"><div class="placeholder-box"><i data-lucide="user" class="opacity-10"></i></div></div>
+                    <div class="img-frame bg-white relative h-1/2 shadow-inner" id="slot-container-lamarca-ergonomics"></div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PÁGINA 7: VAULT DINÁMICO -->
-    <section class="slide-container bg-stone-50">
-        <h2 class="slide-title">Vault Dinámico y Salud Endotelial</h2>
-        <div class="content-area">
-            <div class="grid grid-cols-12 gap-12 w-full items-center text-center lg:text-left">
-                <div class="lg:col-span-6 space-y-8 reveal">
-                    <div class="bg-white p-8 border-l-4 border-teal-500 shadow-xl rounded-sm">
-                        <p class="text-3xl font-black text-medical-deep mb-2">~1 &mu;L / seg</p>
-                        <p class="text-[10px] font-bold text-teal-700 uppercase tracking-widest">Producción Basal de Humor Acuoso</p>
-                    </div>
-                    <div class="p-6 bg-red-50 border-l-4 border-red-400 rounded-sm shadow-sm text-red-900 text-justify">
-                        <p class="text-xs font-bold mb-2 uppercase">Impacto por Miosis Pupilar</p>
-                        <p class="text-[11px] leading-relaxed">Un vault dinámico de $200 \mu m$ desplaza súbitamente $400 \mu L$ de acuoso durante la **miosis**.</p>
-                    </div>
-                    <div class="p-6 bg-teal-900 text-white shadow-2xl border-l-4 border-medical-accent rounded-sm">
-                        <p class="text-xs font-black uppercase tracking-widest mb-2 text-teal-400">Eficiencia Eyecryl™</p>
-                        <p class="text-sm font-bold leading-relaxed">Gracias a su vault dinámico medio de $100 \mu m$, Eyecryl™ reduce el turnover traumático al **50%**.</p>
-                    </div>
-                </div>
-                <div class="col-span-6 reveal h-full"><div class="img-frame bg-white relative h-full shadow-2xl" id="slot-container-aqueous-dynamics"></div></div>
             </div>
         </div>
     </section>
 
     <!-- PÁGINA 8: CALCULADOR 2.0 (SLOT REPARADO) -->
     <section class="slide-container">
-        <h2 class="slide-title">Calculador 2.0: IA y Sincronización</h2>
+        <h2 class="slide-title">Calculador 2.0: IA y Movilidad</h2>
         <div class="content-area">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 w-full h-full items-start">
-                <div class="lg:col-span-6 reveal space-y-4">
+                <div class="lg:col-span-6 reveal space-y-4 text-left">
                     <div class="bg-white p-8 border-l-4 border-medical-teal shadow-2xl rounded-sm">
                         <h3 class="text-medical-deep font-black text-sm mb-4 leading-snug italic">Advanced Calculator v2.0</h3>
-                        <p class="text-xs text-gray-600 mb-6 leading-relaxed text-justify">Motor de cálculo con IA y análisis multicéntrico. Optimiza la predictibilidad mediante la integración de medidas avanzadas: **ATA, WTW, SS-SS y STS**.</p>
+                        <p class="text-xs text-gray-600 mb-6 leading-relaxed">Motor de cálculo con IA integrada. Análisis de medidas: **ATA, WTW, SS-SS y STS**. Sincronización con 19 biómetros.</p>
                         <div class="bg-teal-50 p-5 rounded-lg border border-teal-100 mb-6 flex items-center gap-4 shadow-sm">
                             <i data-lucide="smartphone" class="text-medical-teal w-8 h-8"></i>
-                            <div><h4 class="text-[10px] font-black uppercase">Biotech APP</h4><p class="text-[9px] text-teal-800">Gestiona cálculos y pedidos desde iOS/Android.</p></div>
+                            <div><h4 class="text-[10px] font-black uppercase text-left">Biotech APP</h4><p class="text-[9px] text-teal-800 text-left">Cálculos y pedidos desde iOS/Android.</p></div>
                         </div>
-                        <a href="https://biotechcalculators.com/" target="_blank" class="bg-medical-teal text-white w-full py-5 rounded font-black text-[11px] uppercase flex items-center justify-center gap-3 shadow-lg hover:bg-teal-800 transition-all">
-                            <i data-lucide="external-link"></i> Acceso Directo: Biotech Calculators
+                        <a href="https://biotechcalculators.com/" target="_blank" class="bg-medical-teal text-white w-full py-5 rounded font-black text-[11px] uppercase flex items-center justify-center gap-3 shadow-lg">
+                            <i data-lucide="external-link"></i> Biotech Calculators Online
                         </a>
                     </div>
                 </div>
@@ -386,82 +362,24 @@
         </div>
     </section>
 
-    <!-- PÁGINA 9: PROYECTO PRESBICIA -->
-    <section class="slide-container">
-        <h2 class="slide-title">Proyecto Presbicia: Phakic EDOF</h2>
-        <div class="content-area">
-            <div class="grid grid-cols-12 gap-10 w-full items-start">
-                <div class="col-span-5 reveal space-y-10">
-                    <div class="launch-banner-premium">
-                        <p class="text-[10px] font-black uppercase tracking-[0.4em] text-purple-200 mb-2">Exclusividad Biotech</p>
-                        <h3 class="text-3xl font-black tracking-tight italic uppercase text-white leading-none">PRÓXIMO<br>LANZAMIENTO</h3>
-                    </div>
-                    <div class="bg-white p-8 border-l-4 border-purple-600 shadow-xl rounded-sm text-left">
-                        <h4 class="text-medical-deep font-black text-sm mb-6 uppercase flex items-center gap-3"><i data-lucide="award" class="text-purple-600"></i> Phakic EDOF Technology</h4>
-                        <ul class="space-y-6">
-                            <li class="flex gap-4"><i data-lucide="check" class="text-purple-500 flex-shrink-0"></i><p class="text-xs font-bold text-gray-700 leading-relaxed">Diseño avanzado en proceso de <span class="text-purple-700">marcado CE</span>.</p></li>
-                            <li class="flex gap-4"><i data-lucide="plus" class="text-purple-500 flex-shrink-0"></i><p class="text-xs font-bold text-gray-700 leading-relaxed text-justify">Basada en plataforma Xtense (Add 1.50 a 2.00 D).</p></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-span-7 h-full flex flex-col gap-4">
-                    <div class="img-frame bg-white relative rounded-lg h-[260px]" id="slot-container-presbyopia-1"></div>
-                    <div class="img-frame bg-white relative rounded-lg flex-grow" id="slot-container-presbyopia-2"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PÁGINA 10: EVIDENCIA CLÍNICA -->
-    <section class="slide-container bg-stone-50">
-        <h2 class="slide-title">Evidencia Clínica de Alto Impacto</h2>
-        <div class="content-area flex-col">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full mb-10">
-                <div class="study-result-card reveal">
-                    <h4 class="text-medical-teal font-black text-[9px] uppercase mb-4 tracking-widest">Predictibilidad</h4>
-                    <p class="text-4xl font-black text-medical-deep mb-2">86%</p>
-                    <p class="text-[10px] text-gray-500 leading-relaxed">De pacientes en rango de $\pm 200 \mu m$ del vault objetivo predicho.</p>
-                </div>
-                <div class="study-result-card reveal" style="transition-delay: 0.1s;">
-                    <h4 class="text-medical-teal font-black text-[9px] uppercase mb-4 tracking-widest">Salud Endotelial</h4>
-                    <p class="text-4xl font-black text-medical-deep mb-2">&lt; 3%</p>
-                    <p class="text-[10px] text-gray-500 leading-relaxed">Pérdida anual celular fisiológica reportada.</p>
-                </div>
-                <div class="study-result-card reveal" style="transition-delay: 0.2s;">
-                    <h4 class="text-medical-teal font-black text-[9px] uppercase mb-4 tracking-widest">Estabilidad</h4>
-                    <p class="text-2xl font-black text-medical-deep mb-2 uppercase">98% ÉXITO</p>
-                    <p class="text-[10px] text-gray-500 leading-relaxed">Con rotación inferior a $5^\circ$ tras 12 meses.</p>
-                </div>
-            </div>
-            <div class="col-span-12 w-full mt-auto bg-white p-8 border-l-4 border-medical-accent shadow-sm">
-                <h5 class="text-[10px] font-black text-medical-teal uppercase mb-4 flex items-center gap-2"><i data-lucide="book-open"></i> Referencias Máster</h5>
-                <div class="grid grid-cols-2 gap-x-12 gap-y-2 text-[8px] text-gray-400 uppercase font-medium">
-                    <p>1. Monson MC, et al. JCRS 1989. | 2. Shimizu K, et al. AJO 2012.</p>
-                    <p>3. Kawamorita K, et al. IOVS 2012. | 4. Biotech Audit Results 2024. | 5. Kohnen T, et al. JCRS 2016.</p>
-                    <p>6. Alfonso JF, et al. Ophthalmology 2010.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PÁGINA 11: TRIO PLUS (ADN MATERIAL) -->
+    <!-- PÁGINA 11: TRIO PLUS -->
     <section id="section-trio" class="slide-container">
-        <div class="bg-[#051A1A] p-8 flex justify-between items-center border-b border-medical-accent shadow-lg">
-            <h2 class="text-white text-3xl font-black tracking-widest">OPTIFLEX™ TRIO PLUS</h2>
+        <div class="bg-[#051A1A] p-8 flex justify-between items-center border-b border-medical-accent">
+            <h2 class="text-white text-3xl font-black tracking-widest text-left">OPTIFLEX™ TRIO PLUS</h2>
             <div class="bg-medical-accent px-6 py-2 rounded-full shadow-lg"><span class="text-white text-[11px] font-black uppercase">Refractiva-Difractiva Hidrofóbica</span></div>
         </div>
         <div class="content-area">
             <div class="grid grid-cols-12 gap-10 w-full items-center">
-                <div class="col-span-6 reveal space-y-4">
+                <div class="col-span-6 reveal space-y-4 text-left">
                     <div class="bg-white p-8 border-l-4 border-medical-accent shadow-2xl rounded-sm">
                         <div class="grid grid-cols-2 gap-4 mb-6">
                             <div class="bg-teal-50 p-4 rounded text-center border border-teal-100"><p class="text-[9px] font-black text-teal-600 uppercase">Add Cerca</p><p class="text-xl font-black text-medical-deep">+3.50 D</p></div>
                             <div class="bg-teal-50 p-4 rounded text-center border border-teal-100"><p class="text-[9px] font-black text-teal-600 uppercase">Add Intermedia</p><p class="text-xl font-black text-medical-deep">+1.85 D</p></div>
                         </div>
-                        <ul class="medical-list space-y-3">
-                            <li class="font-bold">Material PEA + HEMA ($-80^\circ$C): <span class="text-[10px] font-normal block text-gray-500 mt-1">Corte criogenizado premium: menos glistening del mercado mundial.</span></li>
-                            <li class="font-bold text-medical-accent">Óptica Central Sectorizada: <span class="text-[10px] font-normal block text-gray-500 mt-1">Gestión de aberraciones de alto orden para potenciar visión intermedia y próxima.</span></li>
-                            <li class="font-bold">Eficiencia Lumínica 88.3%: <span class="text-[10px] font-normal block text-teal-700 italic mt-1">Diseño que nunca baja del 20% de luz en ninguna de las distancias focales.</span></li>
+                        <ul class="medical-list space-y-2">
+                            <li class="font-bold">Material PEA + HEMA ($-80^\circ$C): <span class="text-[10px] font-normal block text-gray-500 mt-1">Corte criogenizado: la lente con menos glistening del mercado.</span></li>
+                            <li class="font-bold text-medical-accent">Óptica Central Sectorizada: <span class="text-[10px] font-normal block text-gray-500 mt-1">Gestión de aberraciones de alto orden para intermedia y próxima.</span></li>
+                            <li class="font-bold">Eficiencia Lumínica 88.3%: <span class="text-[10px] font-normal block text-teal-700 italic mt-1 leading-tight">Diseño que nunca baja del 20% de luz en ninguna de las distancias focales.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -471,34 +389,6 @@
                         <div class="img-frame bg-gray-50 relative rounded-lg" id="slot-container-trio-2"></div>
                         <div class="img-frame bg-gray-50 relative rounded-lg lg:col-span-2" id="slot-container-trio-3"></div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PÁGINA 12: XTENSE (MATERIAL Y SECTORES) -->
-    <section id="section-xtense" class="slide-container">
-        <div class="bg-[#0A1F1F] p-8 flex justify-between items-center border-b border-purple-500 shadow-lg">
-            <h2 class="text-white text-3xl font-black tracking-widest drop-shadow-md">OPTIFLEX™ XTENSE</h2>
-            <div class="bg-purple-600 px-6 py-2 rounded-full shadow-lg"><span class="text-white text-[11px] font-black uppercase">Refractiva-Difractiva Hidrofóbica</span></div>
-        </div>
-        <div class="content-area">
-            <div class="grid grid-cols-12 gap-10 w-full items-center">
-                <div class="lg:col-span-7 reveal space-y-4">
-                    <div class="bg-white p-8 border-l-4 border-purple-500 shadow-2xl rounded-sm">
-                        <h3 class="text-medical-deep font-black text-sm mb-4 italic">Profundidad de Foco Natural</h3>
-                        <p class="text-[11px] text-gray-600 mb-6 leading-relaxed italic">Diseño con **sectores de 60º** que logra una adición real $+3.00$ a $+3.25$ D. Área central amplia ideal para córneas asimétricas.</p>
-                        <ul class="medical-list space-y-3">
-                            <li class="font-bold text-xs">Material PEA + HEMA (Corte $-80^\circ$C).</li>
-                            <li>Filtro mácula blanco (preservación de sensibilidad al contraste). Halos $0\%$.</li>
-                            <li>Rendimiento de Trifocal con seguridad y confort de EDOF.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-span-5 h-full flex flex-col gap-4">
-                    <div class="img-frame bg-gray-50 relative h-1/3 rounded-lg shadow-inner" id="slot-container-xtense-1"></div>
-                    <div class="img-frame bg-gray-50 relative h-1/3 rounded-lg shadow-inner" id="slot-container-xtense-2"></div>
-                    <div class="img-frame bg-gray-50 relative h-1/3 rounded-lg shadow-inner" id="slot-container-xtense-3"></div>
                 </div>
             </div>
         </div>
@@ -519,11 +409,11 @@
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full reveal">
                 <div class="bg-medical-deep p-8 rounded-lg text-white shadow-xl flex flex-col justify-between text-center">
-                    <h4 class="text-teal-400 font-black text-xs mb-4 uppercase tracking-widest">Target: TRIO PLUS</h4>
+                    <h4 class="text-teal-400 font-black text-xs mb-4 uppercase">Target: TRIO PLUS</h4>
                     <p class="text-4xl font-black uppercase py-4 border-y border-white/10 tracking-widest text-white">EMETROPÍA</p>
                 </div>
-                <div class="bg-purple-900 p-8 rounded-lg text-white shadow-xl flex flex-col justify-between">
-                    <h4 class="text-purple-300 font-black text-xs mb-4 uppercase tracking-widest">Target: XTENSE</h4>
+                <div class="bg-purple-900 p-8 rounded-lg text-white shadow-xl flex flex-col justify-between text-left">
+                    <h4 class="text-purple-300 font-black text-xs mb-4 uppercase tracking-widest text-left">Target: XTENSE</h4>
                     <div class="space-y-6 border-y border-white/10 py-6">
                         <div class="flex justify-between items-center"><span class="text-[11px] uppercase font-bold opacity-60">Ojo Dominante</span><span class="text-base font-black uppercase text-white">EMETROPÍA</span></div>
                         <div class="flex justify-between items-center"><span class="text-[11px] uppercase font-bold opacity-60">Ojo No Dominante</span><span class="text-base font-black uppercase text-purple-200">PRIMER NEGATIVO</span></div>
@@ -547,6 +437,7 @@
 </div>
 
 <script>
+// IDs EXPLICITOS PARA EVITAR ERRORES DE MAPEADO
 const mediaSlots = [
     { id: 'cover', label: 'Página 2: Portada Master' },
     { id: 'factory', label: 'Página 3: Alcance Mundial' },
@@ -555,40 +446,53 @@ const mediaSlots = [
     { id: 'sulcus-support', label: 'Página 6: Apoyo Sulcus' },
     { id: 'lamarca-ergonomics', label: 'Página 6: Ergonomía' },
     { id: 'aqueous-dynamics', label: 'Página 7: Vault Dinámico' },
-    { id: 'calc-1', label: 'Página 8: Interfaz Calculador' }, { id: 'calc-2', label: 'Página 8: Hardware Sinc' },
-    { id: 'presbyopia-1', label: 'Página 9: Presbicia 1' }, { id: 'presbyopia-2', label: 'Página 9: Presbicia 2' },
-    { id: 'trio-1', label: 'Página 11: Trio Lente' }, { id: 'trio-2', label: 'Página 11: Trio Óptica' }, { id: 'trio-3', label: 'Página 11: Trio Otros' },
-    { id: 'xtense-1', label: 'Página 12: Xtense Lente' }, { id: 'xtense-2', label: 'Página 12: Xtense Óptica' }, { id: 'xtense-3', label: 'Página 12: Xtense Otros' }
+    { id: 'calc-1', label: 'Página 8: Interfaz Calculador' }, 
+    { id: 'calc-2', label: 'Página 8: Hardware Sinc' },
+    { id: 'presbyopia-1', label: 'Página 9: Presbicia 1' }, 
+    { id: 'presbyopia-2', label: 'Página 9: Presbicia 2' },
+    { id: 'trio-1', label: 'Página 11: Trio Lente' }, 
+    { id: 'trio-2', label: 'Página 11: Trio Óptica' }, 
+    { id: 'trio-3', label: 'Página 11: Trio Otros' },
+    { id: 'xtense-1', label: 'Página 12: Xtense Lente' }, 
+    { id: 'xtense-2', label: 'Página 12: Xtense Óptica' }, 
+    { id: 'xtense-3', label: 'Página 12: Xtense Otros' }
 ];
 
 function initManager() {
     const container = document.getElementById('inputs-container');
     if (!container) return;
     
-    // Limpiamos el contenedor por si acaso
-    container.innerHTML = '';
+    container.innerHTML = ''; // Limpiar por seguridad
     
     mediaSlots.forEach(slot => {
         const group = document.createElement('div');
         group.className = 'file-input-group';
         
-        // CORRECCIÓN TÉCNICA: Usamos template literals sin caracteres de escape incorrectos
-        group.innerHTML = `
-            <label class="text-[9px] font-bold">${slot.label}</label>
-            <input type="file" id="input-${slot.id}" accept="image/*,video/mp4" class="w-full text-[8px] mt-1">
-        `;
+        // Creamos el label y el input de forma pura
+        const label = document.createElement('label');
+        label.className = 'text-[9px] font-bold';
+        label.innerText = slot.label;
+        
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.id = 'input-' + slot.id;
+        input.accept = 'image/*,video/mp4';
+        input.className = 'w-full text-[8px] mt-1';
+        
+        group.appendChild(label);
+        group.appendChild(input);
         container.appendChild(group);
         
-        const input = document.getElementById(`input-${slot.id}`);
         input.onchange = (e) => {
             const file = e.target.files[0];
             if (!file) return;
             const reader = new FileReader();
             reader.onload = () => {
-                // Almacenamos con un prefijo único para esta versión
-                localStorage.setItem(`biotech_vFinal_ULTIMATE_${slot.id}`, reader.result);
-                localStorage.setItem(`biotech_vFinal_ULTIMATE_${slot.id}_type`, file.type);
-                renderAll(); // Forzamos el renderizado inmediato
+                // Usamos una clave de almacenamiento robusta
+                const keyPrefix = 'biotech_vFinal_PRO_IMAGE_';
+                localStorage.setItem(keyPrefix + slot.id, reader.result);
+                localStorage.setItem(keyPrefix + slot.id + '_type', file.type);
+                renderAll(); 
             };
             reader.readAsDataURL(file);
         };
@@ -604,14 +508,16 @@ function initManager() {
 
 function renderAll() {
     mediaSlots.forEach(slot => {
-        const container = document.getElementById(`slot-container-${slot.id}`);
-        if (!container) return;
+        // Buscamos el contenedor por su ID exacto: slot-container-ID
+        const targetElement = document.getElementById('slot-container-' + slot.id);
+        if (!targetElement) return;
         
-        const savedData = localStorage.getItem(`biotech_vFinal_ULTIMATE_${slot.id}`);
-        const savedType = localStorage.getItem(`biotech_vFinal_ULTIMATE_${slot.id}_type`);
+        const keyPrefix = 'biotech_vFinal_PRO_IMAGE_';
+        const savedData = localStorage.getItem(keyPrefix + slot.id);
+        const savedType = localStorage.getItem(keyPrefix + slot.id + '_type');
         
         if (savedData) {
-            container.innerHTML = '';
+            targetElement.innerHTML = '';
             if (savedType && savedType.includes('video')) {
                 const video = document.createElement('video');
                 video.src = savedData; 
@@ -620,12 +526,12 @@ function renderAll() {
                 video.muted = true; 
                 video.playsInline = true;
                 video.className = 'media-content'; 
-                container.appendChild(video);
+                targetElement.appendChild(video);
             } else {
                 const img = document.createElement('img');
                 img.src = savedData; 
                 img.className = 'media-content'; 
-                container.appendChild(img);
+                targetElement.appendChild(img);
             }
         }
     });
@@ -633,9 +539,10 @@ function renderAll() {
 
 function clearAllImages() {
     if(confirm("¿Estás seguro de que deseas borrar todas las imágenes subidas?")) {
+        const keyPrefix = 'biotech_vFinal_PRO_IMAGE_';
         mediaSlots.forEach(slot => {
-            localStorage.removeItem(`biotech_vFinal_ULTIMATE_${slot.id}`);
-            localStorage.removeItem(`biotech_vFinal_ULTIMATE_${slot.id}_type`);
+            localStorage.removeItem(keyPrefix + slot.id);
+            localStorage.removeItem(keyPrefix + slot.id + '_type');
         });
         location.reload();
     }
@@ -648,7 +555,6 @@ function setupReveal() {
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
-// Inicialización
 window.onload = () => {
     initManager();
     setupReveal();
