@@ -7,470 +7,459 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-/* 1. CONFIGURACIÓN BASE */
-:root {
-  --medical-deep: #0A1F1F; /* Petróleo Profundo */
-  --medical-teal: #1E4D4E; /* Teal Quirúrgico */
-  --medical-accent: #00A3A3; /* Teal Brillante */
-  --bg-white: #F4F7F7;
-  --text-main: #1A2E2E;
-  --text-muted: #5F7A7A;
-  --font-titles: 'Outfit', sans-serif;
-  --font-body: 'Inter', sans-serif;
-}
+        :root {
+            --medical-deep: #0A1F1F;
+            --medical-teal: #1E4D4E;
+            --medical-accent: #00A3A3;
+            --bg-white: #F4F7F7;
+            --text-main: #1A2E2E;
+            --text-muted: #5F7A7A;
+            --font-titles: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #d1d5db;
+            font-family: var(--font-body);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
 
-body {
-  background-color: #d1d5db;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 60px;
-  padding: 60px 0;
-  font-family: var(--font-body);
-}
+        /* Sistema de Diapositivas */
+        .slide-container {
+            width: 100%;
+            max-width: 1280px;
+            min-height: 720px;
+            background-color: var(--bg-white);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            margin: 40px auto;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
 
-/* 2. CONTENEDOR DE SLIDE */
-.slide-container {
-  width: 1280px;
-  height: 720px;
-  background-color: var(--bg-white);
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.15);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid rgba(0,0,0,0.05);
-}
+        @media (max-width: 1024px) {
+            .slide-container {
+                min-height: auto;
+                margin: 20px 10px;
+                width: calc(100% - 20px);
+            }
+        }
 
-.slide-container.dark {
-  background: linear-gradient(135deg, #091F1F 0%, #163636 100%);
-  color: #fff;
-}
+        .slide-container.dark {
+            background: linear-gradient(135deg, #091F1F 0%, #163636 100%);
+            color: #fff;
+        }
 
-/* 3. TIPOGRAFÍA */
-h1, h2, h3 {
-  font-family: var(--font-titles);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
+        h1, h2, h3 {
+            font-family: var(--font-titles);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
 
-.slide-title {
-  font-size: 42px;
-  font-weight: 900;
-  padding: 60px 80px 20px 80px;
-  color: var(--medical-deep);
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-.dark .slide-title { color: #fff; }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-.content-area {
-  flex-grow: 1;
-  padding: 0 80px 80px 80px;
-  display: flex;
-  align-items: center;
-}
+        .img-frame {
+            background: #fff;
+            border: 1px solid #D1DBDB;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 400px;
+        }
 
-/* 4. ELEMENTOS VISUALES */
-.img-frame {
-  border: 1px solid #D1DBDB;
-  padding: 12px;
-  background: #fff;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
+        .dark .img-frame {
+            background: rgba(255,255,255,0.03);
+            border-color: rgba(255,255,255,0.1);
+        }
 
-.dark .img-frame { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1); }
+        .accent-line {
+            height: 4px;
+            width: 80px;
+            background: var(--medical-accent);
+        }
 
-.img-placeholder {
-  color: var(--text-muted);
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  text-align: center;
-}
+        /* Panel de Gestión Mejorado */
+        #image-manager-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            z-index: 1000;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 50px 120px rgba(0,0,0,0.6);
+            display: none;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
 
-/* 5. GESTOR DE IMÁGENES (PERSISTENCIA) */
-#image-manager-toggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 999;
-  background: var(--medical-deep);
-  color: white;
-  padding: 12px 20px;
-  border-radius: 30px;
-  cursor: pointer;
-  font-weight: bold;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border: none;
-}
+        .file-input-group {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+        }
 
-#image-manager-panel {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 500px;
-  background: white;
-  z-index: 1000;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 50px 100px rgba(0,0,0,0.5);
-  display: none;
-}
+        .file-input-group:hover {
+            border-color: var(--medical-accent);
+        }
 
-.file-input-group {
-  margin-bottom: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
+        .file-input-group label {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--medical-teal);
+            margin-bottom: 8px;
+            display: block;
+        }
 
-.file-input-group label { font-size: 12px; font-weight: bold; color: var(--medical-teal); }
+        .custom-file-input::-webkit-file-upload-button {
+            visibility: hidden;
+        }
+        .custom-file-input::before {
+            content: 'Elegir archivo';
+            display: inline-block;
+            background: var(--medical-teal);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 4px;
+            outline: none;
+            white-space: nowrap;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
 
-/* 6. LAYOUTS */
-.two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; width: 100%; }
-.explanation-text { font-size: 18px; line-height: 1.7; color: var(--text-muted); }
-.dark .explanation-text { color: rgba(255,255,255,0.7); }
-
-.formula-box {
-  background: #EBF1F1;
-  padding: 30px;
-  border-left: 5px solid var(--medical-accent);
-  margin: 30px 0;
-  font-family: monospace;
-}
-
-.accent-line { height: 4px; width: 80px; background: var(--medical-accent); margin-bottom: 25px; }
-
+        /* Animación suave para placeholders */
+        .placeholder-box {
+            animation: pulse 2s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.2; }
+            50% { opacity: 0.4; }
+            100% { opacity: 0.2; }
+        }
     </style>
 </head>
 <body>
 
-<button id="image-manager-toggle"><i data-lucide="image"></i> Gestionar Imágenes</button>
+<!-- BOTÓN GESTIÓN -->
+<button id="image-manager-toggle" class="fixed bottom-8 right-8 z-[999] bg-[#00A3A3] text-white px-8 py-4 rounded-full font-black shadow-2xl flex items-center gap-3 hover:scale-105 transition-all uppercase tracking-widest text-xs">
+    <i data-lucide="upload-cloud"></i> <span>Subir mis imágenes</span>
+</button>
 
+<!-- PANEL GESTIÓN -->
 <div id="image-manager-panel">
-    <h3 style="margin-bottom: 20px; color: var(--medical-deep);">Cargar Imágenes Reales</h3>
-    <p style="font-size: 12px; margin-bottom: 20px; color: var(--text-muted);">Selecciona las fotos de tu ordenador. Se guardarán en este navegador automáticamente.</p>
-    <div id="inputs-container"></div>
-    <button onclick="document.getElementById('image-manager-panel').style.display='none'" style="width:100%; padding:10px; background:var(--medical-accent); color:white; border:none; border-radius:4px; margin-top:20px; cursor:pointer;">Cerrar y Guardar</button>
+    <div class="flex justify-between items-center mb-6 border-b pb-4">
+        <div>
+            <h3 class="text-2xl font-black text-[#0A1F1F]">Editor Visual</h3>
+            <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mt-1">Personalización de Diapositivas</p>
+        </div>
+        <button onclick="document.getElementById('image-manager-panel').style.display='none'" class="text-gray-400 hover:text-red-500 transition-colors">
+            <i data-lucide="circle-x" class="w-8 h-8"></i>
+        </button>
+    </div>
+    <div id="inputs-container" class="grid grid-cols-1 gap-4">
+        <!-- Generado por JS -->
+    </div>
+    <div class="mt-8 flex gap-4">
+        <button onclick="clearAllImages()" class="flex-1 bg-gray-100 text-gray-500 py-4 rounded-xl font-bold hover:bg-red-50 hover:text-red-600 transition-all uppercase text-xs">Borrar Todo</button>
+        <button onclick="document.getElementById('image-manager-panel').style.display='none'" class="flex-[2] bg-[#00A3A3] text-white py-4 rounded-xl font-bold shadow-lg hover:bg-teal-700 transition-all uppercase text-xs tracking-widest">Guardar y Ver Presentación</button>
+    </div>
 </div>
 
 <!-- SLIDE 1: PORTADA -->
-<div class="slide-container dark">
-    <div class="content-area">
-        <div class="two-column" style="align-items: center;">
-            <div>
-                <p style="text-transform: uppercase; letter-spacing: 0.6em; font-size: 12px; color: var(--medical-accent); margin-bottom: 20px; font-weight: bold;">Biotech Healthcare Hub</p>
-                <h1 style="font-size: 85px; line-height: 0.9; margin-bottom: 30px;">EYECRYL™<br>PHAKIC</h1>
-                <div class="accent-line"></div>
-                <p style="font-size: 28px; font-weight: 300; opacity: 0.9; letter-spacing: 0.1em;">La arquitectura del equilibrio</p>
-                <div style="margin-top: 60px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); width: fit-content;">
-                    <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.3em; color: var(--medical-accent);">Ingeniería Criogénica Certificada</p>
-                </div>
+<section class="slide-container dark">
+    <div class="flex flex-col md:flex-row h-full items-center px-10 md:px-24 py-12 gap-12">
+        <div class="flex-1 reveal">
+            <p class="text-teal-400 font-bold tracking-[0.6em] text-[11px] mb-4 uppercase">Biotech Healthcare</p>
+            <h1 class="text-5xl md:text-8xl font-black leading-none mb-6">EYECRYL™<br>PHAKIC</h1>
+            <div class="accent-line mb-6"></div>
+            <p class="text-2xl md:text-4xl font-light text-teal-100 tracking-wide mb-10">la arquitectura del equilibrio</p>
+            <div class="space-y-4">
+                <p class="text-teal-100/40 text-sm leading-relaxed max-w-md">
+                    Ingeniería de precisión diseñada para una integración armónica con la anatomía ocular. La solución definitiva para la corrección refractiva de alta definición.
+                </p>
             </div>
-            <div style="height: 550px; position: relative;">
-                <div id="lens-360-hero"></div>
-                <div style="position: absolute; bottom: 20px; right: 20px; font-size: 10px; opacity: 0.4; text-transform: uppercase;">Modelo 3D Interactivo</div>
+        </div>
+        <div class="flex-1 w-full h-full reveal relative flex items-center justify-center">
+            <!-- Slot: Imagen de Portada -->
+            <div class="img-frame bg-transparent border-teal-500/10 shadow-none p-0 overflow-hidden">
+                <img data-persist="cover-lens" src="" class="persisted-img w-full h-auto object-contain hidden">
+                <div class="placeholder-box text-center opacity-30">
+                    <i data-lucide="image-plus" class="w-24 h-24 mx-auto mb-4 text-teal-500"></i>
+                    <p class="text-xs font-bold uppercase tracking-[0.4em]">Subir Foto de la Lente</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <!-- SLIDE 2: FABRICACIÓN -->
-<div class="slide-container">
-    <h2 class="slide-title"><i data-lucide="factory"></i> Fabricación en Irlanda</h2>
-    <div class="content-area">
-        <div class="two-column">
-            <div class="explanation-text">
-                <p style="margin-bottom: 30px;">Nuestra sede en <strong>Roscommon, Irlanda</strong>, no es solo una planta de producción; es un centro de I+D donde la física se encuentra con la medicina.</p>
-                <div style="background: var(--bg-white); border: 1px solid #e2e8f0; padding: 25px; margin-bottom: 30px;">
-                    <h4 style="font-size: 14px; color: var(--medical-teal); margin-bottom: 15px;">Estándares de Excelencia:</h4>
-                    <ul style="list-style: none; font-size: 16px;">
-                        <li style="margin-bottom: 10px;">• Corte criogénico a <strong>-80°C</strong> para rigidez micrométrica.</li>
-                        <li style="margin-bottom: 10px;">• Control de calidad ISO 13485 en cada etapa.</li>
-                        <li style="margin-bottom: 10px;">• Trazabilidad total desde el monómero inicial.</li>
-                    </ul>
+<section class="slide-container">
+    <div class="p-10 md:p-24 flex flex-col md:flex-row gap-16 items-center h-full">
+        <div class="flex-1 reveal">
+            <h2 class="text-4xl md:text-5xl font-black text-[#0A1F1F] mb-8 uppercase">Excelencia de Fabricación</h2>
+            <div class="accent-line mb-8"></div>
+            <p class="text-lg text-gray-600 leading-relaxed mb-6 font-light">
+                Nuestra planta de producción en <strong>Roscommon, Irlanda</strong>, es el epicentro mundial de la tecnología de Biotech. 
+            </p>
+            <p class="text-sm text-gray-500 mb-10 leading-relaxed">
+                Cada unidad de Eyecryl™ se somete a un proceso de tallado criogénico a <strong>-80°C</strong>. Este método de endurecimiento térmico permite que las herramientas de diamante alcancen una precisión nanométrica, eliminando rugosidades que podrían causar dispersión pigmentaria.
+            </p>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-teal-50 p-6 border-l-4 border-teal-600 shadow-sm">
+                    <span class="block text-3xl font-black text-[#0A1F1F]">ISO 13485</span>
+                    <p class="text-[9px] font-bold uppercase text-teal-700 tracking-widest mt-1">Calidad Certificada</p>
                 </div>
-                <p>Esta infraestructura nos permite garantizar un stock del 100% en tallas estándar con entrega en 24 horas.</p>
+                <div class="bg-teal-50 p-6 border-l-4 border-teal-600 shadow-sm">
+                    <span class="block text-3xl font-black text-[#0A1F1F]">100% Stock</span>
+                    <p class="text-[9px] font-bold uppercase text-teal-700 tracking-widest mt-1">Suministro Global</p>
+                </div>
             </div>
-            <div class="img-frame">
-                <img data-persist="image_a52bdb.png" src="" alt="" class="persisted-img">
-                <div class="img-placeholder">Sede de Roscommon, Irlanda</div>
+        </div>
+        <div class="flex-1 w-full h-full reveal relative">
+            <!-- Slot: Fachada Irlanda -->
+            <div class="img-frame bg-gray-50 border-gray-200 overflow-hidden">
+                <img data-persist="factory-irland" src="" class="persisted-img w-full h-full object-cover hidden">
+                <div class="placeholder-box text-center opacity-20">
+                    <i data-lucide="factory" class="w-16 h-16 mx-auto mb-4 text-teal-900"></i>
+                    <p class="text-xs font-bold uppercase tracking-widest">Subir Foto de la Sede</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<!-- SLIDE 3: DINÁMICA DE FLUIDOS -->
-<div class="slide-container">
-    <h2 class="slide-title"><i data-lucide="waves"></i> Dinámica de Fluidos</h2>
-    <div class="content-area">
-        <div class="two-column" style="align-items: center;">
-            <div class="img-frame">
-                <img data-persist="image_a4cdfd.jpg" src="" alt="" class="persisted-img">
-                <div class="img-placeholder">Gráfico Dinámica de Vault</div>
+<!-- SLIDE 3: HIDRODINÁMICA -->
+<section class="slide-container">
+    <div class="p-10 md:p-24 flex flex-col md:flex-row-reverse gap-16 items-center h-full">
+        <div class="flex-1 reveal">
+            <h2 class="text-4xl md:text-5xl font-black text-[#0A1F1F] mb-8 uppercase">Gestión del Flujo Acuoso</h2>
+            <div class="accent-line mb-8"></div>
+            <p class="text-lg text-gray-600 leading-relaxed mb-6 font-light text-justify">
+                La seguridad endotelial depende de una circulación constante del humor acuoso, especialmente durante eventos dinámicos.
+            </p>
+            <div class="bg-teal-900 text-teal-100 p-8 rounded-sm mb-8 shadow-inner">
+                <p class="font-mono text-xl font-bold text-center italic">Q = (π · ΔP · r⁴) / (8 · η · L)</p>
             </div>
-            <div class="explanation-text">
-                <p>La seguridad no es estática, es dinámica. Nuestra tecnología resuelve el problema del desplazamiento masivo de humor acuoso durante la actividad pupilar.</p>
-                <div class="formula-box">
-                    Q = (π · ΔP · r⁴) / (8 · η · L)
+            <p class="text-gray-500 leading-relaxed text-sm">
+                La <strong>Ley de Poiseuille</strong> fundamenta nuestro puerto central de <strong>360 micras</strong>. Al elevar el radio a la cuarta potencia, logramos un flujo laminar que mantiene el vaulting estable en 110 micras, evitando el contacto con el cristalino durante la miosis pupilar.
+            </p>
+        </div>
+        <div class="flex-1 w-full reveal">
+            <!-- Slot: Gráfico Hidrodinámica -->
+            <div class="img-frame bg-white">
+                <img data-persist="chart-hydro" src="" class="persisted-img w-full h-full object-contain hidden p-4">
+                <div class="placeholder-box text-center opacity-20">
+                    <i data-lucide="bar-chart-3" class="w-16 h-16 mx-auto mb-4 text-teal-900"></i>
+                    <p class="text-xs font-bold uppercase tracking-widest">Subir Gráfico de Volumen</p>
                 </div>
-                <p>Gracias al puerto central de <strong>360µm</strong> (radio elevado a la cuarta potencia en la Ley de Poiseuille), el flujo laminar es constante. Esto reduce la fluctuación del vault a solo <strong>110 micras</strong>, frente a las 200 de otros diseños, protegiendo el endotelio.</p>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <!-- SLIDE 4: ZERO TECHNOLOGY -->
-<div class="slide-container dark">
-    <h2 class="slide-title"><i data-lucide="zap"></i> Zero Technology™</h2>
-    <div class="content-area">
-        <div class="two-column">
-            <div class="explanation-text">
-                <p style="margin-bottom: 30px;">"El Lienzo Perfecto". La ausencia de irregularidades superficiales es nuestra prioridad para evitar la fricción mecánica.</p>
-                <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 8px;">
-                    <p style="color: var(--medical-accent); font-weight: bold; margin-bottom: 10px;">Análisis AFM (Microscopía de Fuerza Atómica):</p>
-                    <p>Nuestra rugosidad superficial (RMS) es <strong>inferior a 2 nm</strong>. Esto es vital para:</p>
-                    <ul style="margin-top: 15px; font-size: 15px;">
-                        <li>1. Evitar la dispersión de luz (fenómenos fóticos).</li>
-                        <li>2. Prevenir la inflamación por contacto uveal.</li>
-                        <li>3. Garantizar una óptica "invisible" para el iris.</li>
-                    </ul>
+<section class="slide-container dark">
+    <div class="p-10 md:p-24 flex flex-col gap-10 h-full">
+        <div class="reveal text-center">
+            <h2 class="text-4xl md:text-6xl font-black mb-4">Zero Technology™: Superficie</h2>
+            <div class="accent-line mx-auto mb-8"></div>
+            <p class="max-w-3xl mx-auto text-teal-100/60 leading-relaxed text-lg italic font-light">
+                "Pureza nanométrica para una agudeza visual sin interferencias fóticas".
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 flex-grow reveal">
+            <!-- Slot: AFM Analysis -->
+            <div class="img-frame bg-white flex flex-col p-8 border-teal-500/20">
+                <img data-persist="img-afm" src="" class="persisted-img w-full h-full object-contain hidden p-4">
+                <div class="placeholder-box text-center opacity-20 z-0">
+                    <i data-lucide="microscope" class="w-12 h-12 mx-auto mb-2 text-teal-900"></i>
+                    <p class="text-[10px] font-bold uppercase tracking-widest">Subir Análisis AFM</p>
                 </div>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 20px;">
-                <div class="img-frame"><img data-persist="image_a4cdc4.jpg" src="" class="persisted-img"><div class="img-placeholder">Comparativa AFM</div></div>
-                <div class="img-frame"><img data-persist="image_a4ce1a.jpg" src="" class="persisted-img"><div class="img-placeholder">OCT de Alta Definición</div></div>
+            <!-- Slot: OCT Segments -->
+            <div class="img-frame bg-black flex flex-col p-4 border-teal-900/40">
+                <img data-persist="img-oct" src="" class="persisted-img w-full h-full object-contain hidden">
+                <div class="placeholder-box text-center opacity-40 z-0">
+                    <i data-lucide="scan-eye" class="w-12 h-12 mx-auto mb-2 text-teal-400"></i>
+                    <p class="text-[10px] font-bold uppercase tracking-widest">Subir Imagen OCT</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <!-- SLIDE 5: ARQUITECTURA -->
-<div class="slide-container">
-    <h2 class="slide-title"><i data-lucide="shrub"></i> Arquitectura de Puente</h2>
-    <div class="content-area">
-        <div class="two-column" style="grid-template-columns: 1.3fr 0.7fr;">
-            <div class="explanation-text">
-                <p style="margin-bottom: 30px;">Nos inspiramos en la <strong>ingeniería civil</strong>. Un puente de arco no colapsa porque distribuye las fuerzas hacia sus pilares (hápticos). </p>
-                <div class="img-frame" style="height: 350px;">
-                    <img data-persist="image_a4d903.jpg" src="" class="persisted-img">
-                    <div class="img-placeholder">Analogía de Puente Arco</div>
-                </div>
-                <p style="margin-top: 25px; font-size: 16px;">Esta estructura permite que la lente mantenga su curvatura central incluso bajo la presión del sulcus, evitando la depresión central que compromete el vault en lentes de la competencia.</p>
+<section class="slide-container">
+    <div class="p-10 md:p-24 flex flex-col md:flex-row gap-16 items-center h-full">
+        <div class="flex-1 reveal">
+            <h2 class="text-4xl md:text-5xl font-black text-[#0A1F1F] mb-8 uppercase">Arquitectura de Puente</h2>
+            <div class="accent-line mb-8"></div>
+            <p class="text-lg text-gray-600 leading-relaxed mb-6 font-light">
+                La geometría de arco de la Eyecryl™ Phakic distribuye las tensiones del sulcus hacia los hápticos.
+            </p>
+            <p class="text-sm text-gray-500 mb-8 leading-relaxed">
+                Este diseño estructural evita que la zona óptica central sufra deformaciones mecánicas. Mientras que otras lentes se deprimen centralmente bajo presión, nuestra arquitectura garantiza un vault predecible, protegiendo la salud endotelial del paciente a largo plazo.
+            </p>
+            <div class="bg-teal-50 p-6 rounded-xl border border-teal-100">
+                <p class="text-xs font-bold text-teal-950 uppercase tracking-widest mb-2">Memoria Estructural</p>
+                <p class="text-[11px] text-teal-800 leading-relaxed">Benz Flex 26: Material de alta biocompatibilidad con recuperación elástica instantánea post-inserción.</p>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 15px;">
-                <div class="img-frame"><img data-persist="image_a4d276.jpg" src="" class="persisted-img"></div>
-                <div class="img-frame"><img data-persist="image_a4d27b.jpg" src="" class="persisted-img"></div>
-                <p style="font-size: 12px; color: var(--text-muted); text-align: center;">Análisis de Vectores y Memoria de Material</p>
+        </div>
+        <div class="flex-1 w-full h-full reveal relative">
+            <!-- Slot: Arquitectura / Puente -->
+            <div class="img-frame bg-white border-dashed border-2 border-gray-200 shadow-none">
+                <img data-persist="img-bridge" src="" class="persisted-img w-full h-full object-contain hidden">
+                <div class="placeholder-box text-center opacity-20">
+                    <i data-lucide="bridge" class="w-16 h-16 mx-auto mb-4 text-teal-900"></i>
+                    <p class="text-xs font-bold uppercase tracking-widest">Subir Analogía de Puente</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<!-- SLIDE 6: CALCULADOR -->
-<div class="slide-container dark">
-    <h2 class="slide-title"><i data-lucide="cpu"></i> Calculador 3.0 & IA</h2>
-    <div class="content-area">
-        <div class="two-column">
-            <div style="display: flex; flex-direction: column; gap: 20px;">
-                <div class="img-frame"><img data-persist="image_a4d1db.jpg" src="" class="persisted-img"></div>
-                <div class="explanation-text" style="font-size: 16px;">
-                    <p>No es solo un calculador; es un <strong>ecosistema digital</strong> basado en un algoritmo multicéntrico europeo con validación clínica masiva (Barraquer).</p>
-                </div>
+<!-- FOOTER / PRESBICIA -->
+<section class="slide-container dark justify-center items-center">
+    <div class="text-center reveal p-20">
+        <p class="text-teal-500 font-bold tracking-[1.2em] text-[11px] mb-12 uppercase">Próximo Horizonte</p>
+        <h2 class="text-6xl md:text-9xl font-black mb-10 tracking-tighter">PROJECT<br><span class="text-teal-400">PRESBYOPIA</span></h2>
+        <div class="accent-line mx-auto mb-12"></div>
+        <p class="max-w-2xl mx-auto text-xl text-teal-100/40 font-light italic mb-16">
+            Redefiniendo la independencia visual para el paciente présbita con tecnología **EDOF Phakic**. 
+        </p>
+        <div class="grid grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <!-- Slots: Presbicia Assets -->
+            <div class="img-frame bg-white/5 border-white/10 h-32">
+                <img data-persist="p-1" src="" class="persisted-img w-full h-full object-contain hidden">
+                <i data-lucide="file-image" class="w-6 h-6 opacity-10"></i>
             </div>
-            <div class="explanation-text">
-                <h4 style="color: var(--medical-accent); margin-bottom: 20px;">Precisión Predictiva</h4>
-                <p>Nuestra IA permite una predicción del vault con una precisión de <strong>±300 micras</strong> en el 96% de los casos.</p>
-                <div class="img-frame" style="margin-top: 30px; height: 300px;">
-                    <img data-persist="image_a4d21e.png" src="" class="persisted-img">
-                    <div class="img-placeholder">Gráfico de Predicción Barraquer</div>
-                </div>
+            <div class="img-frame bg-white/5 border-white/10 h-32">
+                <img data-persist="p-2" src="" class="persisted-img w-full h-full object-contain hidden">
+                <i data-lucide="file-image" class="w-6 h-6 opacity-10"></i>
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- SLIDE 7: ERGONOMÍA -->
-<div class="slide-container">
-    <h2 class="slide-title"><i data-lucide="user-check"></i> Ergonomía y Mano Dominante</h2>
-    <div class="content-area">
-        <div class="two-column">
-            <div class="img-frame">
-                <img data-persist="image_a4d99f.jpg" src="" class="persisted-img">
-                <div class="img-placeholder">Infografía Hipótesis Mecánica</div>
-            </div>
-            <div class="explanation-text">
-                <p style="margin-bottom: 25px;">Para el cirujano tórico, la alineación es el factor crítico. Nuestra hipótesis demuestra que la <strong>mano dominante</strong> influye en el éxito de la alineación mecánica inicial.</p>
-                <div style="background: var(--medical-teal); color: white; padding: 30px; text-align: center;">
-                    <p style="font-size: 12px; text-transform: uppercase; margin-bottom: 10px;">Significancia Estadística</p>
-                    <p style="font-size: 48px; font-weight: 900; font-family: var(--font-titles);">p = 0.0016</p>
-                </div>
-                <div class="img-frame" style="margin-top: 25px; height: 180px;">
-                    <img data-persist="image_a4d999.png" src="" class="persisted-img">
-                </div>
+            <div class="img-frame bg-white/5 border-white/10 h-32">
+                <img data-persist="p-3" src="" class="persisted-img w-full h-full object-contain hidden">
+                <i data-lucide="file-image" class="w-6 h-6 opacity-10"></i>
             </div>
         </div>
     </div>
-</div>
-
-<!-- SLIDE 8: PRESBICIA -->
-<div class="slide-container dark">
-    <h2 class="slide-title"><i data-lucide="microscope"></i> Proyecto Presbicia</h2>
-    <div class="content-area">
-        <div style="display: flex; flex-direction: column; gap: 40px; width: 100%;">
-            <p class="explanation-text" style="text-align: center;">Redefiniendo la independencia visual con tecnología <strong>EDOF Phakic</strong> de próxima generación. Actualmente en proceso de registro.</p>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px;">
-                <div class="img-frame"><img data-persist="image_a4d15d.jpg" src="" class="persisted-img"><div class="img-placeholder">EDOF Optic</div></div>
-                <div class="img-frame"><img data-persist="image_a4d17e.jpg" src="" class="persisted-img"><div class="img-placeholder">MTF Analysis</div></div>
-                <div class="img-frame"><img data-persist="image_a4d183.jpg" alt="" class="persisted-img"><div class="img-placeholder">USAF Validation</div></div>
-            </div>
-            <div style="text-align: center; opacity: 0.5; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5em;">Pipeline 2026 - Biotech Global Research</div>
-        </div>
+    <div class="absolute bottom-10 left-10 right-10 flex justify-between items-center text-[10px] font-bold text-teal-900/40 uppercase tracking-[0.4em]">
+        <span>© 2026 BIOTECH HEALTHCARE</span>
+        <span>Ireland Excellence</span>
     </div>
-</div>
+</section>
 
 <script>
-// --- 1. LÓGICA DE PERSISTENCIA DE IMÁGENES ---
-const imageFiles = [
-    { id: 'image_a52bdb.png', label: '1. Sede Irlanda' },
-    { id: 'image_a4cdfd.jpg', label: '2. Gráfico Dinámica' },
-    { id: 'image_a4cdc4.jpg', label: '3. Análisis AFM' },
-    { id: 'image_a4ce1a.jpg', label: '4. OCT HD' },
-    { id: 'image_a4d903.jpg', label: '5. Analogía Puente' },
-    { id: 'image_a4d276.jpg', label: '6. OCT Memoria' },
-    { id: 'image_a4d27b.jpg', label: '7. Vectores Fuerza' },
-    { id: 'image_a4d1db.jpg', label: '8. Algoritmo Calculador' },
-    { id: 'image_a4d21e.png', label: '9. Gráfico Predicción' },
-    { id: 'image_a4d99f.jpg', label: '10. Infografía Ergonomía' },
-    { id: 'image_a4d999.png', label: '11. Test Fisher' },
-    { id: 'image_a4d15d.jpg', label: '12. Lente EDOF' },
-    { id: 'image_a4d17e.jpg', label: '13. Curva MTF' },
-    { id: 'image_a4d183.jpg', label: '14. Test USAF' },
-    { id: 'image_a4d93c.jpg', label: '15. Alojamiento OCT' },
-    { id: 'image_a4d91e.jpg', label: '16. Superposición' },
-    { id: 'Imagen10.jpg', label: '17. Interface Calculador' }
+// --- LISTA DINÁMICA DE SLOTS ---
+const imageSlots = [
+    { id: 'cover-lens', label: '1. Imagen de Portada (Lente Real)' },
+    { id: 'factory-irland', label: '2. Sede Roscommon, Irlanda' },
+    { id: 'chart-hydro', label: '3. Gráfico de Hidrodinámica (Volumen)' },
+    { id: 'img-afm', label: '4. Análisis de Superficie AFM' },
+    { id: 'img-oct', label: '5. Imágenes OCT Segmento Anterior' },
+    { id: 'img-bridge', label: '6. Analogía Arquitectura Puente' },
+    { id: 'p-1', label: '7. Presbicia - Lente EDOF' },
+    { id: 'p-2', label: '8. Presbicia - Curva MTF' },
+    { id: 'p-3', label: '9. Presbicia - Test USAF' }
 ];
 
-function initImageManager() {
+function initManager() {
     const container = document.getElementById('inputs-container');
     const toggle = document.getElementById('image-manager-toggle');
     const panel = document.getElementById('image-manager-panel');
 
     toggle.onclick = () => panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
 
-    imageFiles.forEach(file => {
+    imageSlots.forEach(slot => {
         const group = document.createElement('div');
         group.className = 'file-input-group';
         group.innerHTML = `
-            <label>${file.label} (${file.id})</label>
-            <input type="file" id="input-${file.id}" accept="image/*">
+            <label>${slot.label}</label>
+            <input type="file" id="input-${slot.id}" accept="image/*" class="custom-file-input w-full text-xs">
         `;
         container.appendChild(group);
 
-        const input = document.getElementById(`input-${file.id}`);
+        const input = document.getElementById(`input-${slot.id}`);
         input.onchange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
             const reader = new FileReader();
             reader.onload = () => {
-                const base64 = reader.result;
-                localStorage.setItem(`eyecryl_img_${file.id}`, base64);
-                updateAllImages();
+                localStorage.setItem(`eyecryl_v2_${slot.id}`, reader.result);
+                renderAllImages();
             };
-            reader.readAsDataURL(e.target.files[0]);
+            reader.readAsDataURL(file);
         };
     });
-
-    updateAllImages();
+    renderAllImages();
 }
 
-function updateAllImages() {
+function renderAllImages() {
     document.querySelectorAll('.persisted-img').forEach(img => {
-        const id = img.getAttribute('data-persist');
-        const saved = localStorage.getItem(`eyecryl_img_${id}`);
-        if (saved) {
-            img.src = saved;
-            img.style.display = 'block';
-            if (img.nextElementSibling && img.nextElementSibling.classList.contains('img-placeholder')) {
+        const slotId = img.getAttribute('data-persist');
+        const savedData = localStorage.getItem(`eyecryl_v2_${slotId}`);
+        if (savedData) {
+            img.src = savedData;
+            img.classList.remove('hidden');
+            if(img.nextElementSibling && img.nextElementSibling.classList.contains('placeholder-box')) {
                 img.nextElementSibling.style.display = 'none';
             }
         } else {
-            img.style.display = 'none';
+            img.classList.add('hidden');
+            if(img.nextElementSibling && img.nextElementSibling.classList.contains('placeholder-box')) {
+                img.nextElementSibling.style.display = 'flex';
+            }
         }
     });
 }
 
-// --- 2. VISOR 3D ---
-function initLens3D() {
-    const container = document.getElementById('lens-360-hero');
-    if (!container) return;
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    container.appendChild(renderer.domElement);
-
-    scene.add(new THREE.AmbientLight(0xffffff, 1.2));
-    const pointLight = new THREE.PointLight(0x00A3A3, 1);
-    pointLight.position.set(5, 5, 5);
-    scene.add(pointLight);
-
-    const group = new THREE.Group();
-    // Reemplaza con la imagen real si la subes, si no, usa el plano procedimental
-    const textureLoader = new THREE.TextureLoader();
-    const savedTexture = localStorage.getItem('eyecryl_img_ChatGPT Image 25 ene 2026, 20_31_28 - copia.jpg');
-    
-    let material;
-    if (savedTexture) {
-        material = new THREE.MeshBasicMaterial({ map: textureLoader.load(savedTexture), transparent: true, side: THREE.DoubleSide });
-    } else {
-        material = new THREE.MeshPhongMaterial({ color: 0x00A3A3, transparent: true, opacity: 0.3, shininess: 100 });
+function clearAllImages() {
+    if(confirm("¿Estás seguro de que quieres borrar todas las imágenes subidas?")) {
+        imageSlots.forEach(slot => localStorage.removeItem(`eyecryl_v2_${slot.id}`));
+        renderAllImages();
     }
+}
 
-    const geometry = new THREE.PlaneGeometry(6, 4);
-    const lensMesh = new THREE.Mesh(geometry, material);
-    group.add(lensMesh);
-    scene.add(group);
-
-    camera.position.z = 7;
-
-    let isDragging = false;
-    let prevX = 0;
-    container.onmousedown = () => isDragging = true;
-    window.onmouseup = () => isDragging = false;
-    container.onmousemove = (e) => {
-        if (isDragging) group.rotation.y += (e.clientX - prevX) * 0.01;
-        prevX = e.clientX;
-    };
-
-    function animate() {
-        requestAnimationFrame(animate);
-        if (!isDragging) group.rotation.y += 0.005;
-        renderer.render(scene, camera);
-    }
-    animate();
+// --- ANIMACIÓN DE APARICIÓN (REVEAL) ---
+function setupReveal() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
 window.onload = () => {
-    initImageManager();
-    initLens3D();
+    initManager();
+    setupReveal();
     lucide.createIcons();
 };
 </script>
