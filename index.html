@@ -52,11 +52,13 @@
             flex-direction: column;
             margin: 40px auto;
             border: 1px solid rgba(0,0,0,0.05);
+            page-break-after: always;
             flex-shrink: 0;
         }
 
         @media (max-width: 1280px) {
-            .slide-container { width: 95vw; height: auto; min-height: 100vh; margin: 20px auto; }
+            .slide-container { width: 98vw; height: auto; min-height: 100vh; margin: 15px auto; border-radius: 8px; }
+            .content-area { flex-direction: column !important; padding: 30px !important; }
         }
 
         .slide-container.dark { background: linear-gradient(135deg, #091F1F 0%, #163636 100%); color: #fff; }
@@ -115,6 +117,7 @@
 
         .floating-controls { position: fixed; bottom: 2rem; right: 2rem; z-index: 999; display: flex; flex-direction: column; gap: 0.75rem; }
 
+        /* Estilos específicos para la separación del ecosistema */
         .ecosystem-grid { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; height: 100%; gap: 0; }
         .ecosystem-item { padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
         .ecosystem-item:not(:last-child)::after {
@@ -132,7 +135,7 @@
 <!-- BOTÓN FLOTANTE GESTOR -->
 <div class="floating-controls">
     <button id="image-manager-toggle" class="bg-[#00A3A3] text-white px-8 py-4 rounded-full font-black shadow-2xl flex items-center gap-3 hover:scale-105 transition-all uppercase tracking-widest text-[10px]">
-        <i data-lucide="settings"></i> <span>Gestor de Activos</span>
+        <i data-lucide="camera"></i> <span>Gestor de Activos</span>
     </button>
 </div>
 
@@ -223,7 +226,7 @@
                     </div>
                 </div>
                 <div class="bg-white p-8 shadow-2xl rounded-sm border border-gray-100 space-y-6">
-                    <p class="text-lg font-bold text-medical-deep leading-snug italic">Más de <span class="text-medical-accent">100.000 lentes Eyecryl™ Phakic</span> implantadas mundialmente.</p>
+                    <p class="text-lg font-bold text-medical-deep leading-snug italic">Más de <span class="text-medical-accent font-black">100.000 lentes Eyecryl™ Phakic</span> implantadas mundialmente.</p>
                     <div class="h-px bg-gray-100 w-full"></div>
                     <p class="text-lg font-bold text-medical-deep leading-snug text-medical-teal">Más de 60 millones de lentes pseudofáquicas Benz™ fabricadas.</p>
                 </div>
@@ -269,7 +272,7 @@
 
     <!-- PAG 5: FICHA TÉCNICA -->
     <section class="slide-container">
-        <h2 class="slide-title">Ficha Técnica: Parámetros Master</h2>
+        <h2 class="slide-title">Parámetros del Sistema: Eyecryl™ Phakic</h2>
         <div class="content-area">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 w-full items-start">
                 <div class="reveal">
@@ -317,8 +320,8 @@
                         </div>
                     </div>
                     <div class="bg-teal-900 p-6 rounded-lg text-white shadow-2xl border-b-4 border-teal-400">
-                        <h4 class="text-[10px] font-black uppercase text-teal-400 mb-2">Implicación de la Mano Dominante</h4>
-                        <p class="text-xs font-bold leading-relaxed mb-3 italic">"La ergonomía y la dominancia manual impactan en el posicionamiento ideal."</p>
+                        <h4 class="text-[10px] font-black uppercase text-teal-400 mb-2 tracking-widest">Validación de la Mano Dominante</h4>
+                        <p class="text-xs font-bold leading-relaxed mb-3 italic text-justify">"La ergonomía y la dominancia manual impactan en el posicionamiento ideal del eje tórico."</p>
                         <div class="flex items-center gap-4 py-3 border-t border-white/10">
                             <div class="text-2xl font-black text-teal-300">p = 0.0016</div>
                             <p class="text-[9px] uppercase font-light opacity-80 leading-tight">Éxito total en alineación nasal (OD) y temporal (OI).</p>
@@ -326,8 +329,8 @@
                     </div>
                 </div>
                 <div class="col-span-6 reveal h-full flex flex-col gap-4">
-                    <div class="img-frame bg-white relative h-1/2" id="slot-container-sulcus-support"></div>
-                    <div class="img-frame bg-white relative h-1/2" id="slot-container-lamarca-ergonomics"><div class="placeholder-box"><i data-lucide="user" class="opacity-10"></i></div></div>
+                    <div class="img-frame bg-white relative h-1/2 shadow-inner" id="slot-container-sulcus-support"></div>
+                    <div class="img-frame bg-white relative h-1/2 shadow-inner" id="slot-container-lamarca-ergonomics"><div class="placeholder-box"><i data-lucide="user" class="opacity-10"></i></div></div>
                 </div>
             </div>
         </div>
@@ -341,11 +344,11 @@
                 <div class="lg:col-span-6 space-y-8 reveal">
                     <div class="bg-white p-8 border-l-4 border-teal-500 shadow-xl rounded-sm">
                         <p class="text-3xl font-black text-medical-deep mb-2">~1 &mu;L / seg</p>
-                        <p class="text-[10px] font-bold text-teal-700 uppercase tracking-widest">Producción Basal de Humor Acuoso</p>
+                        <p class="text-[10px] font-bold text-teal-700 uppercase tracking-widest text-justify">Producción Basal de Humor Acuoso</p>
                     </div>
                     <div class="p-6 bg-red-50 border-l-4 border-red-400 rounded-sm shadow-sm text-red-900">
                         <p class="text-xs font-bold mb-2 uppercase">Impacto por Miosis Pupilar</p>
-                        <p class="text-[11px] text-red-800 leading-relaxed">Un vault dinámico de $200 \mu m$ desplaza súbitamente $400 \mu L$ de acuoso durante la **miosis**.</p>
+                        <p class="text-[11px] text-red-800 leading-relaxed text-justify">Un vault dinámico de $200 \mu m$ desplaza súbitamente $400 \mu L$ de acuoso durante la **miosis**.</p>
                     </div>
                     <div class="p-6 bg-teal-900 text-white shadow-2xl border-l-4 border-medical-accent rounded-sm">
                         <p class="text-xs font-black uppercase tracking-widest mb-2 text-teal-400">Eficiencia Eyecryl™</p>
@@ -365,18 +368,18 @@
                 <div class="lg:col-span-6 reveal space-y-4">
                     <div class="bg-white p-8 border-l-4 border-medical-teal shadow-2xl rounded-sm">
                         <h3 class="text-medical-deep font-black text-sm mb-4 leading-snug italic">Advanced Calculator v2.0</h3>
-                        <p class="text-xs text-gray-600 mb-6 leading-relaxed text-justify">Motor de cálculo rediseñado que integra Inteligencia Artificial con un análisis multicéntrico europeo. Optimiza la predictibilidad mediante:</p>
+                        <p class="text-xs text-gray-600 mb-6 leading-relaxed text-justify">Motor de cálculo con IA y análisis multicéntrico europeo. Optimiza la predictibilidad:</p>
                         <ul class="medical-list mb-8">
-                            <li>Sincronización nativa con **19 instrumentos** (hoja a 26).</li>
+                            <li>Sincronización con **19 instrumentos** (roadmap a 26).</li>
                             <li>Medidas avanzadas: **ATA, WTW, SS-SS y STS**.</li>
-                            <li>Cálculo de **Vault Predictivo** basado en IA.</li>
+                            <li>Cálculo de **Vault Predictivo** mediante IA profunda.</li>
                         </ul>
                         <div class="bg-teal-50 p-5 rounded-lg border border-teal-100 mb-6 flex items-center gap-4 shadow-sm">
                             <i data-lucide="smartphone" class="text-medical-teal w-8 h-8"></i>
-                            <div><h4 class="text-[10px] font-black uppercase">Biotech APP</h4><p class="text-[9px] text-teal-800">Gestiona cálculos y stock desde iOS/Android.</p></div>
+                            <div><h4 class="text-[10px] font-black uppercase">Biotech APP</h4><p class="text-[9px] text-teal-800">Cálculos y stock desde iOS/Android.</p></div>
                         </div>
                         <a href="https://biotechcalculators.com/" target="_blank" class="bg-medical-teal text-white w-full py-5 rounded font-black text-[11px] uppercase flex items-center justify-center gap-3 shadow-lg hover:bg-teal-800 transition-all">
-                            <i data-lucide="external-link"></i> Acceso: Biotech Calculators
+                            <i data-lucide="external-link"></i> Biotech Calculators Online
                         </a>
                     </div>
                 </div>
@@ -398,12 +401,12 @@
                         <p class="text-[10px] font-black uppercase tracking-[0.4em] text-purple-200 mb-2">Exclusividad Biotech</p>
                         <h3 class="text-3xl font-black tracking-tight italic uppercase text-white leading-none">PRÓXIMO<br>LANZAMIENTO</h3>
                     </div>
-                    <div class="bg-white p-8 border-l-4 border-purple-600 shadow-xl rounded-sm">
+                    <div class="bg-white p-8 border-l-4 border-purple-600 shadow-xl rounded-sm text-left">
                         <h4 class="text-medical-deep font-black text-sm mb-6 uppercase flex items-center gap-3"><i data-lucide="award" class="text-purple-600"></i> Phakic EDOF Technology</h4>
                         <ul class="space-y-6">
                             <li class="flex gap-4"><i data-lucide="check" class="text-purple-500 flex-shrink-0"></i><p class="text-xs font-bold text-gray-700 leading-relaxed">Diseño avanzado en proceso de <span class="text-purple-700">marcado CE</span>.</p></li>
-                            <li class="flex gap-4"><i data-lucide="layers" class="text-purple-500 flex-shrink-0"></i><p class="text-xs font-bold text-gray-700 leading-relaxed text-justify">Arquitectura basada en Xtense.</p></li>
-                            <li class="flex gap-4"><i data-lucide="plus" class="text-purple-500 flex-shrink-0"></i><p class="text-xs font-bold text-gray-700 leading-relaxed">Adición de <span class="text-purple-700">1.50 D a 2.00 D</span>.</p></li>
+                            <li class="flex gap-4"><i data-lucide="layers" class="text-purple-500 flex-shrink-0"></i><p class="text-xs font-bold text-gray-700 leading-relaxed">Arquitectura basada en Xtense.</p></li>
+                            <li class="flex gap-4"><i data-lucide="plus" class="text-purple-500 flex-shrink-0"></i><p class="text-xs font-bold text-gray-700 leading-relaxed text-justify">Adición de <span class="text-purple-700">1.50 D a 2.00 D</span>.</p></li>
                         </ul>
                     </div>
                 </div>
@@ -423,25 +426,25 @@
                 <div class="study-result-card reveal">
                     <h4 class="text-medical-teal font-black text-[9px] uppercase mb-4 tracking-widest">Predictibilidad</h4>
                     <p class="text-4xl font-black text-medical-deep mb-2">86%</p>
-                    <p class="text-[10px] text-gray-500 leading-relaxed">De pacientes en rango de $\pm 200 \mu m$ del vault predicho por el algoritmo v2.0.</p>
+                    <p class="text-[10px] text-gray-500 leading-relaxed">Pacientes en rango de $\pm 200 \mu m$ del vault objetivo predicho por algoritmo v2.0.</p>
                 </div>
                 <div class="study-result-card reveal" style="transition-delay: 0.1s;">
                     <h4 class="text-medical-teal font-black text-[9px] uppercase mb-4 tracking-widest">Salud Endotelial</h4>
                     <p class="text-4xl font-black text-medical-deep mb-2">&lt; 3%</p>
-                    <p class="text-[10px] text-gray-500 leading-relaxed">Pérdida anual celular fisiológica reportada tras implantes fáquicos.</p>
+                    <p class="text-[10px] text-gray-500 leading-relaxed">Pérdida anual celular fisiológica reportada tras el seguimiento clínico.</p>
                 </div>
                 <div class="study-result-card reveal" style="transition-delay: 0.2s;">
                     <h4 class="text-medical-teal font-black text-[9px] uppercase mb-4 tracking-widest">Estabilidad Rotacional</h4>
-                    <p class="text-4xl font-black text-medical-deep mb-2">98%</p>
-                    <p class="text-[10px] text-gray-500 leading-relaxed">De éxito con rotación inferior a $5^\circ$ tras 12 meses de seguimiento clínico.</p>
+                    <p class="text-2xl font-black text-medical-deep mb-2 uppercase">98% ÉXITO</p>
+                    <p class="text-[10px] text-gray-500 leading-relaxed">De casos tóricos con rotación inferior a $5^\circ$ tras 12 meses de estudio.</p>
                 </div>
             </div>
             <div class="col-span-12 w-full mt-auto bg-white p-8 border-l-4 border-medical-accent shadow-sm">
-                <h5 class="text-[10px] font-black text-medical-teal uppercase tracking-widest mb-4 flex items-center gap-2"><i data-lucide="book-open"></i> Referencias Máster</h5>
-                <div class="grid grid-cols-2 gap-x-12 gap-y-2 text-[8px] text-gray-400 uppercase font-medium">
-                    <p>1. Monson MC, et al. Postoperative inflammation. JCRS 1989. | 2. Shimizu K, et al. AJO 2012.</p>
-                    <p>3. Kawamorita K, et al. IOVS 2012. | 4. Alfonso JF, et al. Ophthalmology 2010.</p>
-                    <p>5. Kohnen T, et al. JCRS 2016. | 6. Biotech Audit 2024.</p>
+                <h5 class="text-[10px] font-black text-medical-teal uppercase mb-4 flex items-center gap-2"><i data-lucide="book-open"></i> Referencias Máster</h5>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2 text-[8px] text-gray-400 uppercase font-medium">
+                    <p>1. Monson MC, et al. JCRS 1989. | 2. Shimizu K, et al. AJO 2012.</p>
+                    <p>3. Kawamorita K, et al. IOVS 2012. | 4. Biotech Audit Results 2024. | 5. Kohnen T, et al. JCRS 2016.</p>
+                    <p>6. Alfonso JF, et al. Ophthalmology 2010. | 7. Biotech Multicentric Predictability Audit.</p>
                 </div>
             </div>
         </div>
@@ -449,7 +452,7 @@
 
     <!-- PAG 11: TRIO PLUS -->
     <section id="section-trio" class="slide-container">
-        <div class="bg-[#051A1A] p-8 flex justify-between items-center border-b border-medical-accent">
+        <div class="bg-[#051A1A] p-8 flex justify-between items-center border-b border-medical-accent shadow-lg">
             <h2 class="text-white text-3xl font-black tracking-widest">OPTIFLEX™ TRIO PLUS</h2>
             <div class="bg-medical-accent px-6 py-2 rounded-full shadow-lg"><span class="text-white text-[11px] font-black uppercase">Refractiva-Difractiva Hidrofóbica</span></div>
         </div>
@@ -462,17 +465,18 @@
                             <div class="bg-teal-50 p-4 rounded text-center border border-teal-100"><p class="text-[9px] font-black text-teal-600 uppercase">Add Intermedia</p><p class="text-xl font-black text-medical-deep">+1.85 D</p></div>
                         </div>
                         <ul class="medical-list space-y-2">
-                            <li class="font-bold">Material PEA + HEMA ($-80^\circ$C): <span class="text-[10px] font-normal block text-gray-500 mt-1 text-justify">Corte criogenizado premium: la lente con menos glistening del mercado mundial.</span></li>
-                            <li class="font-bold text-medical-accent">Óptica Central Sectorizada: <span class="text-[10px] font-normal block text-gray-500 mt-1">Gestión de aberraciones de alto orden para potenciar visión intermedia y cerca.</span></li>
-                            <li class="font-bold">Eficiencia Lumínica 88.3%: <span class="text-[10px] font-normal block text-gray-500 italic mt-1 text-teal-700">Diseño que nunca baja del 20% de luz en ninguna de las distancias focales.</span></li>
+                            <li class="font-bold">Material PEA + HEMA ($-80^\circ$C): <span class="text-[10px] font-normal block text-gray-500 mt-1">Corte criogenizado: la lente con menos glistening del mercado mundial.</span></li>
+                            <li class="font-bold text-medical-accent">Óptica Central Sectorizada: <span class="text-[10px] font-normal block text-gray-500 mt-1">Gestión de aberraciones de alto orden para potenciar intermedia y cerca.</span></li>
+                            <li class="font-bold">Eficiencia Lumínica 88.3%: <span class="text-[10px] font-normal block text-teal-700 italic mt-1">Diseño que nunca baja del 20% de luz en ninguna de las distancias focales.</span></li>
+                            <li class="font-bold">Filtro de Mácula Blanco: <span class="text-[10px] font-normal block text-gray-500 mt-1">Mismo color del cristalino: sin alteración cromática, ideal interiores.</span></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-span-6 h-full flex flex-col gap-4">
+                <div class="lg:col-span-6 h-full flex flex-col gap-4">
                     <div class="grid grid-cols-2 gap-4 h-full">
                         <div class="img-frame bg-gray-50 relative rounded-lg shadow-inner" id="slot-container-trio-1"></div>
                         <div class="img-frame bg-gray-50 relative rounded-lg shadow-inner" id="slot-container-trio-2"></div>
-                        <div class="img-frame bg-gray-50 relative rounded-lg col-span-2" id="slot-container-trio-3"></div>
+                        <div class="img-frame bg-gray-50 relative rounded-lg lg:col-span-2" id="slot-container-trio-3"></div>
                     </div>
                 </div>
             </div>
@@ -483,18 +487,18 @@
     <section id="section-xtense" class="slide-container">
         <div class="bg-[#0A1F1F] p-8 flex justify-between items-center border-b border-purple-500 shadow-lg">
             <h2 class="text-white text-3xl font-black tracking-widest drop-shadow-md">OPTIFLEX™ XTENSE</h2>
-            <div class="flex gap-4"><span class="bg-purple-600 text-white px-6 py-2 rounded-full text-[11px] font-black uppercase shadow-lg">Refractiva-Difractiva Hidrofóbica</span></div>
+            <div class="bg-purple-600 px-6 py-2 rounded-full shadow-lg"><span class="text-white text-[11px] font-black uppercase">Refractiva-Difractiva Hidrofóbica</span></div>
         </div>
         <div class="content-area">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 w-full items-center h-full">
                 <div class="col-span-7 reveal space-y-4">
                     <div class="bg-white p-8 border-l-4 border-purple-500 shadow-2xl rounded-sm">
                         <h3 class="text-medical-deep font-black text-sm mb-4 italic">Profundidad de Foco Natural</h3>
-                        <p class="text-[11px] text-gray-600 mb-6 leading-relaxed italic text-justify">Diseño con **sectores de 60º** que logra una adición real de $+3.00$ a $+3.25$ D. Área central amplia ideal para córneas asimétricas.</p>
+                        <p class="text-[11px] text-gray-600 mb-6 leading-relaxed italic text-justify">Diseño con **sectores de 60º** que logra una adición real $+3.00$ a $+3.25$ D. Área central amplia ideal para córneas asimétricas.</p>
                         <ul class="medical-list space-y-3">
                             <li class="font-bold text-xs">Material PEA + HEMA (Corte $-80^\circ$C).</li>
-                            <li>Filtro mácula blanco (mismo color del cristalino natural). Halos $0\%$.</li>
-                            <li>Visión binocular superior: rinde como una Trifocal con la seguridad de EDOF.</li>
+                            <li class="text-xs">Filtro mácula blanco (mismo color del cristalino natural). Halos $0\%$.</li>
+                            <li class="text-xs">Rendimiento de Trifocal con seguridad y confort de EDOF: visión binocular superior.</li>
                         </ul>
                     </div>
                 </div>
@@ -551,23 +555,17 @@
 
 <script>
 const mediaSlots = [
-    { id: 'cover', label: 'Página 2: Portada Eyecryl' },
+    { id: 'cover', label: 'Página 2: Portada Master' },
     { id: 'factory', label: 'Página 3: Alcance Mundial' },
     { id: 'surgical-tech', label: 'Página 4: Técnica Quirúrgica' },
     { id: 'product-box', label: 'Página 5: Packaging' },
     { id: 'sulcus-support', label: 'Página 6: Apoyo Sulcus' },
     { id: 'lamarca-ergonomics', label: 'Página 6: Ergonomía' },
     { id: 'aqueous-dynamics', label: 'Página 7: Vault Dinámico' },
-    { id: 'calc-1', label: 'Página 8: Interfaz Calculador' }, 
-    { id: 'calc-2', label: 'Página 8: Hardware Sinc' },
-    { id: 'presbyopia-1', label: 'Página 9: Presbicia 1' }, 
-    { id: 'presbyopia-2', label: 'Página 9: Presbicia 2' },
-    { id: 'trio-1', label: 'Página 11: Trio Lente' }, 
-    { id: 'trio-2', label: 'Página 11: Trio Óptica' }, 
-    { id: 'trio-3', label: 'Página 11: Trio Otros' },
-    { id: 'xtense-1', label: 'Página 12: Xtense Lente' }, 
-    { id: 'xtense-2', label: 'Página 12: Xtense Óptica' }, 
-    { id: 'xtense-3', label: 'Página 12: Xtense Otros' }
+    { id: 'calc-1', label: 'Página 8: Interfaz Calculador' }, { id: 'calc-2', label: 'Página 8: Hardware Sinc' },
+    { id: 'presbyopia-1', label: 'Página 9: Presbicia Diseño' }, { id: 'presbyopia-2', label: 'Página 9: Presbicia Curvas' },
+    { id: 'trio-1', label: 'Página 11: Trio Lente' }, { id: 'trio-2', label: 'Página 11: Trio Óptica' }, { id: 'trio-3', label: 'Página 11: Trio Otros' },
+    { id: 'xtense-1', label: 'Página 12: Xtense Lente' }, { id: 'xtense-2', label: 'Página 12: Xtense Óptica' }, { id: 'xtense-3', label: 'Página 12: Xtense Otros' }
 ];
 
 function initManager() {
@@ -584,8 +582,8 @@ function initManager() {
                 if (!file) return;
                 const reader = new FileReader();
                 reader.onload = () => {
-                    localStorage.setItem(`biotech_master_final_fix_v71_\${slot.id}`, reader.result);
-                    localStorage.setItem(`biotech_master_final_fix_v71_\${slot.id}_type`, file.type);
+                    localStorage.setItem(`biotech_master_final_fix_vULTIMATE_\${slot.id}`, reader.result);
+                    localStorage.setItem(`biotech_master_final_fix_vULTIMATE_\${slot.id}_type`, file.type);
                     renderAll();
                 };
                 reader.readAsDataURL(file);
@@ -603,8 +601,8 @@ function renderAll() {
     mediaSlots.forEach(slot => {
         const container = document.getElementById(`slot-container-\${slot.id}`);
         if (!container) return;
-        const savedData = localStorage.getItem(`biotech_master_final_fix_v71_\${slot.id}`);
-        const savedType = localStorage.getItem(`biotech_master_final_fix_v71_\${slot.id}_type`);
+        const savedData = localStorage.getItem(`biotech_master_final_fix_vULTIMATE_\${slot.id}`);
+        const savedType = localStorage.getItem(`biotech_master_final_fix_vULTIMATE_\${slot.id}_type`);
         if (savedData) {
             container.innerHTML = '';
             if (savedType && savedType.includes('video')) {
@@ -620,10 +618,10 @@ function renderAll() {
 }
 
 function clearAllImages() {
-    if(confirm("¿Borrar todos los activos cargados?")) {
+    if(confirm("¿Borrar todo?")) {
         mediaSlots.forEach(slot => {
-            localStorage.removeItem(`biotech_master_final_fix_v71_\${slot.id}`);
-            localStorage.removeItem(`biotech_master_final_fix_v71_\${slot.id}_type`);
+            localStorage.removeItem(`biotech_master_final_fix_vULTIMATE_\${slot.id}`);
+            localStorage.removeItem(`biotech_master_final_fix_vULTIMATE_\${slot.id}_type`);
         });
         location.reload();
     }
