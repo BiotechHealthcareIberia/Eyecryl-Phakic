@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eyecryl™ Phakic: la arquitectura del equilibrio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.0/lucide.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+        
+        :root {
+            --brand-dark: #1e203a; 
+            --brand-light: #f4f6fc; 
+            --brand-accent: #4338ca; 
+            --brand-violet: #6366f1;
+            --text-muted: #64748b; 
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: var(--brand-light);
+            color: var(--brand-dark);
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .text-accent { color: var(--brand-accent); }
+        .text-violet { color: var(--brand-violet); }
+        .bg-dark { background-color: var(--brand-dark); }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--brand-dark) 0%, #2c2e50 100%);
+        }
+
+        .hairline {
+            height: 1px;
+            background-color: rgba(99, 102, 241, 0.15);
+            width: 100%;
+        }
+
+        .card-premium {
+            border: 1px solid #e0e7ff;
+            transition: all 0.3s ease;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-premium:hover {
+            border-color: var(--brand-violet);
+            box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.15);
+        }
+
+        .img-container {
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid #e0e7ff;
+            padding: 0.5rem;
+            min-height: 200px;
+            text-align: center;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            max-height: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .formula-display {
+            font-size: 1.3rem;
+            letter-spacing: -0.01em;
+            color: var(--brand-dark);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            padding: 1.5rem;
+            background: rgba(99, 102, 241, 0.05);
+            border-left: 4px solid var(--brand-violet);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--brand-light); }
+        ::-webkit-scrollbar-thumb { background: var(--brand-violet); }
+
+        .caption {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .badge-violet {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--brand-violet);
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header class="h-screen flex items-center justify-center hero-gradient text-white relative px-6 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] border border-indigo-200/20 rounded-full"></div>
+        </div>
+        
+        <div class="max-w-5xl w-full relative z-10">
+            <div class="mb-12 overflow-hidden">
+                <p class="reveal text-[10px] uppercase tracking-[0.6em] text-indigo-300 mb-6 font-semibold flex items-center gap-2">
+                    <i data-lucide="activity" class="w-4 h-4"></i> Biotech Healthcare
+                </p>
+                <h1 class="reveal text-5xl md:text-8xl font-light leading-tight tracking-tight text-white">
+                    Eyecryl™ Phakic:<br>
+                    <span class="italic font-normal text-indigo-100 text-6xl md:text-7xl">la arquitectura del equilibrio</span>
+                </h1>
+            </div>
+            <div class="hairline bg-indigo-500/30 reveal mb-10"></div>
+            <div class="reveal flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                <p class="text-sm text-indigo-200 max-w-sm font-light leading-relaxed">
+                    Ingeniería de vanguardia fabricada en Irlanda. Ciencia aplicada a la dinámica de fluidos y la estabilidad del vault.
+                </p>
+                <div class="animate-bounce pt-4">
+                    <i data-lucide="arrow-down" class="w-5 h-5 text-indigo-300"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Trayectoria y Centro de Excelencia -->
+    <section class="py-32 container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-5 reveal">
+                <h2 class="text-4xl md:text-5xl mb-10 leading-tight text-accent serif">Liderazgo Global en<br>Excelencia Quirúrgica</h2>
+                <p class="text-muted font-light leading-relaxed mb-12 text-lg">
+                    Con más de 25 años de trayectoria y fabricación íntegra en **Roscommon, Irlanda**, Biotech une precisión técnica con seguridad clínica en más de 100 países.
+                </p>
+                <div class="grid grid-cols-2 gap-12 border-t border-indigo-100 pt-10 text-accent">
+                    <div>
+                        <span class="block text-6xl font-light mb-2 serif">40+</span>
+                        <span class="text-[10px] uppercase tracking-widest text-muted font-bold">Países Eyecryl Phakic</span>
+                    </div>
+                    <div>
+                        <span class="block text-6xl font-light mb-2 serif">100+</span>
+                        <span class="text-[10px] uppercase tracking-widest text-muted font-bold">Países Biotech IOLs</span>
+                    </div>
+                </div>
+            </div>
+            <div class="md:col-span-6 md:col-start-7 reveal space-y-8">
+                <div class="img-container aspect-video shadow-xl relative p-0 overflow-hidden bg-white border-0">
+                    <img src="image_a52bdb.png" alt="Instalaciones Roscommon">
+                    <div class="absolute bottom-4 left-4 badge-violet bg-white/90 shadow-md">Biotech Roscommon Factory</div>
+                </div>
+                <div class="relative p-10 bg-white card-premium">
+                    <h3 class="text-2xl mb-6 italic serif text-accent">I+D de Vanguardia</h3>
+                    <p class="text-muted font-light leading-relaxed text-sm">
+                        Nuestras instalaciones cuentan con tecnología de tallado criogénico y laboratorios de física óptica donde se diseña el futuro de la corrección refractiva para el mundo entero.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Anatomía de la Lente (OCT e In Vivo) -->
+    <section class="py-32 bg-dark text-white overflow-hidden relative">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
+                <div class="reveal order-2 md:order-1">
+                    <h2 class="text-5xl md:text-6xl mb-10 font-light italic serif text-indigo-100">Anatomía y Alojamiento</h2>
+                    <p class="text-indigo-200/80 font-light text-xl leading-relaxed mb-12">
+                        La estabilidad nace de un diseño que respeta el surco ciliar y minimiza el impacto en la cámara posterior mediante un arco estructural predecible.
+                    </p>
+                    <div class="grid grid-cols-1 gap-6">
+                        <div class="img-container bg-white/5 border-white/10 p-0">
+                             <img src="image_a4d93c.jpg" alt="Alojamiento OCT">
+                        </div>
+                        <p class="text-xs text-indigo-300 font-light italic text-center">Fig 1. Alojamiento ideal de Eyecryl Phakic en el sulcus.</p>
+                    </div>
+                </div>
+                <div class="reveal order-1 md:order-2">
+                    <div class="img-container bg-white/5 border-white/10 p-0 mb-8">
+                         <img src="image_a4ce1a.jpg" alt="OCT in vivo">
+                    </div>
+                    <div class="img-container bg-white/5 border-white/10 p-0">
+                         <img src="image_a4d91e.jpg" alt="Superposición técnica">
+                    </div>
+                    <p class="caption text-indigo-300/60 mt-4">Fig 2. Superposición y OCT in vivo demostrando el centrado perfecto y la armonía con las estructuras oculares.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dinámica de Fluidos y Vault -->
+    <section class="py-32 container mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-20 items-center">
+            <div class="reveal">
+                <div class="badge-violet mb-4">Bio-Dinámica de Fluidos</div>
+                <h2 class="text-4xl md:text-5xl mb-8 leading-tight serif text-dark">El Control del<br><span class="italic font-light text-violet">Vault Dinámico</span></h2>
+                <p class="text-muted font-light text-lg mb-10 leading-relaxed">
+                    Cada contracción pupilar mueve un volumen crítico de acuoso. Eyecryl minimiza este desplazamiento violento gracias a su arquitectura de equilibrio.
+                </p>
+                
+                <div class="formula-display mb-8">
+                    Q = (π · ΔP · r⁴) / (8 · η · L)
+                </div>
+                <p class="text-sm text-muted font-light leading-relaxed mb-8">
+                    La **Ley de Poiseuille** aplicada al orificio de 360 micras garantiza un flujo laminar constante, reduciendo el cambio de vault a solo **110 micras** (frente a las 200 micras de la competencia).
+                </p>
+            </div>
+            <div class="reveal">
+                <div class="img-container shadow-2xl p-0">
+                    <img src="image_a4cdfd.jpg" alt="Gráfico Dinámica Fluidos">
+                </div>
+                <p class="caption">Fig 3. Reducción drástica del volumen desplazado en evento dinámico (contracción pupilar).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Zero Technology (AFM) -->
+    <section class="py-32 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-24 items-center">
+                <div class="reveal order-2 md:order-1">
+                    <div class="img-container shadow-xl p-0">
+                        <img src="image_a4cdc4.jpg" alt="Zero Technology AFM">
+                    </div>
+                     <p class="caption text-muted mt-4">Fig 4. Comparativa de rugosidad superficial: Tecnología Zero vs Superficie Estándar.</p>
+                </div>
+                <div class="reveal order-1 md:order-2">
+                    <h2 class="text-5xl md:text-6xl mb-8 font-light italic serif text-dark text-accent">Zero Technology™:<br>Pureza de Superficie</h2>
+                    <p class="text-muted font-light text-xl leading-relaxed mb-12">
+                        Una superficie controlada nanométricamente mediante corte criogénico elimina la dispersión de luz, disminuyendo drásticamente la sensación de fenómenos disfotópsicos.
+                    </p>
+                    <ul class="space-y-6">
+                        <li class="flex items-center gap-4 text-accent font-semibold">
+                            <i data-lucide="check-circle" class="w-6 h-6 text-violet"></i> Rugosidad Superficial (RMS) < 2 nm
+                        </li>
+                        <li class="flex items-center gap-4 text-accent font-semibold">
+                            <i data-lucide="check-circle" class="w-6 h-6 text-violet"></i> Pureza del monómero: 99.98%
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ergonomía Quirúrgica -->
+    <section class="py-32 bg-stone-50 border-y border-stone-200">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-4xl md:text-5xl mb-6 italic font-light serif text-dark text-accent">Ergonomía y Mano Dominante</h2>
+                <p class="text-muted max-w-3xl mx-auto font-light">La hipótesis mecánica que vincula el éxito quirúrgico con el posicionamiento y la dominancia manual del cirujano para una alineación ideal.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="reveal">
+                    <div class="img-container shadow-lg bg-white p-0">
+                        <img src="image_a4d99f.jpg" alt="Ergonomía Mano Dominante">
+                    </div>
+                </div>
+                <div class="reveal">
+                    <div class="img-container shadow-lg bg-white p-0">
+                        <img src="image_a4d999.png" alt="Test de Fisher">
+                    </div>
+                    <div class="mt-8 p-6 bg-white border border-indigo-100 rounded-xl shadow-sm">
+                        <p class="text-sm text-muted italic font-light">"El análisis estadístico (Fisher exact p = 0.0016) valida la relación crítica entre la ergonomía posicional y el éxito en la alineación del lado nasal en OD y temporal en OI para cirujanos diestros."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculador e IA -->
+    <section class="py-32 bg-dark text-white relative">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32">
+                <div class="reveal">
+                    <h2 class="text-5xl md:text-6xl mb-8 font-light italic serif text-indigo-100">Algoritmo Multicéntrico</h2>
+                    <p class="text-indigo-200/70 font-light text-xl leading-relaxed mb-12">
+                        El nuevo estándar en cálculo: 6 medidas oculares + 1 medida de arquitectura estructural + Inteligencia Artificial para 25 configuraciones optimizadas.
+                    </p>
+                    <div class="img-container bg-white/5 border-white/10 p-0">
+                         <img src="image_a4d1db.jpg" alt="Algoritmo Biotech">
+                    </div>
+                </div>
+                <div class="reveal">
+                    <div class="img-container bg-white p-4 rounded-2xl shadow-inner">
+                         <img src="image_a4d21e.png" alt="Predicción Vault">
+                    </div>
+                    <p class="caption text-indigo-300 mt-6 font-bold">Capacidad de Predicción Superior: Eyecryl muestra la mayor precisión en el rango crítico de ±300 micras.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Material con Memoria y Arquitectura de Puente -->
+    <section class="py-32 container mx-auto px-6">
+        <div class="text-center mb-24 reveal">
+            <h2 class="text-4xl md:text-5xl mb-6 italic font-light serif text-dark text-accent">La Arquitectura del Vault</h2>
+            <p class="text-muted font-light">Comparativa de estabilidad estructural bajo carga: Eyecryl Phakic vs ICL.</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-16 mb-24 reveal">
+            <div class="space-y-8">
+                <div class="img-container shadow-lg p-0">
+                    <img src="image_a4d276.jpg" alt="Estabilidad Arco OCT">
+                </div>
+                <p class="text-sm text-muted font-light text-center italic">Fig 5. Estabilidad del arco de Eyecryl vs. depresión central observada en ICL bajo las mismas condiciones de estrés.</p>
+            </div>
+            <div class="space-y-8">
+                <div class="img-container shadow-lg p-0">
+                    <img src="image_a4d27b.jpg" alt="Vectores Fuerza">
+                </div>
+                <p class="text-sm text-muted font-light text-center italic">Fig 6. Diagrama de fuerzas: Eyecryl mantiene su forma gracias a su memoria estructural, mientras la competencia tiende a la deformación central.</p>
+            </div>
+        </div>
+
+        <div class="reveal bg-indigo-50 p-12 rounded-3xl border border-indigo-100">
+            <div class="grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-4 text-accent font-bold text-2xl serif italic">
+                    Inspiración en la Ingeniería Civil
+                </div>
+                <div class="md:col-span-8">
+                    <img src="image_a4d903.jpg" alt="Arquitectura Puente" class="w-full rounded-xl">
+                    <p class="text-xs text-muted mt-4 font-light leading-relaxed text-center italic">Nuestra lente se comporta como un puente de arco real: distribuye las tensiones hacia los hápticos sin comprometer la curvatura central.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proyecto Presbicia -->
+    <footer class="py-32 bg-dark text-white relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="mb-24 reveal text-center">
+                <span class="badge-violet bg-indigo-500/20 text-indigo-200 border border-indigo-500/30 mb-8 inline-block">Pipeline 2026</span>
+                <h2 class="text-5xl md:text-7xl italic serif font-light mb-10 tracking-tight text-white">Proyecto Presbicia</h2>
+                <p class="max-w-3xl mx-auto text-indigo-200/70 font-light text-xl leading-relaxed mb-16 text-center">
+                    Redefiniendo la independencia visual con tecnología **EDOF Phakic**. Precisión óptica certificada mediante tests de resolución USAF y curvas MTF detalladas.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="reveal img-container bg-white/5 border-white/10 p-2">
+                        <img src="image_a4d15d.jpg" alt="Presbicia EDOF">
+                    </div>
+                    <div class="reveal img-container bg-white/5 border-white/10 p-2">
+                        <img src="image_a4d17e.jpg" alt="Curvas MTF">
+                    </div>
+                    <div class="reveal img-container bg-white/5 border-white/10 p-2">
+                        <img src="image_a4d183.jpg" alt="Tests USAF">
+                    </div>
+                </div>
+                <div class="mt-8 text-[10px] uppercase tracking-widest text-indigo-400 font-bold">Under Registration Status</div>
+            </div>
+            
+            <div class="hairline bg-indigo-500/30 mb-20"></div>
+            
+            <div class="reveal flex flex-col md:flex-row justify-between items-center gap-12 text-indigo-300/60 font-light text-xs">
+                <p class="uppercase tracking-[0.2em]">© 2026 Biotech Healthcare | Ireland Manufacturing Excellence</p>
+                <div class="flex gap-12 uppercase tracking-[0.2em] font-bold text-indigo-200">
+                    <a href="#" class="hover:text-white transition">Clinical Portal</a>
+                    <a href="#" class="hover:text-white transition">Calculator App</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function safeInitIcons() {
+            let attempts = 0;
+            const maxAttempts = 50;
+            const checkLucide = setInterval(() => {
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                    clearInterval(checkLucide);
+                } else if (attempts >= maxAttempts) {
+                    clearInterval(checkLucide);
+                }
+                attempts++;
+            }, 100);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            safeInitIcons();
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+
+        if (document.readyState === "complete" || document.readyState === "interactive") {
+            safeInitIcons();
+        }
+    </script>
+</body>
+</html>
