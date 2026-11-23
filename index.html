@@ -173,6 +173,8 @@ main { max-width: 660px; margin: 0 auto; padding: 14px 12px 110px; display: flex
 .confirm p { margin: 0; font-size: 14px; color: #8a1c13; }
 .confirm p b { font-weight: 700; }
 .btn-danger { background: #c62828; color: #fff; }
+.chip-xls { background: rgba(255,255,255,.14); }
+.ver { text-align: center; font-size: 11px; color: var(--muted); padding: 8px 0 0; }
 .xlsbar { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
 .xlsbtn { display: inline-flex; align-items: center; gap: 8px; }
 .xlsbtn svg { width: 18px; height: 18px; }
@@ -227,6 +229,7 @@ window.CONFIG = {
       <button class="chip" data-m="PC130T" aria-pressed="false">PC130T</button>
       <button class="chip" data-m="PC135T" aria-pressed="false">PC135T</button>
       <button class="chip" data-m="PC140T" aria-pressed="false">PC140T</button>
+      <button class="chip chip-xls" id="xls-chip" type="button" aria-label="Descargar Excel de esta pestaña">⬇ Excel</button>
     </div>
   </div>
 </header>
@@ -236,6 +239,10 @@ window.CONFIG = {
   <section id="page-disp">
     <div style="display:flex;flex-direction:column;gap:12px">
       <div class="daypill">Toca una lente para reservarla para un doctor</div>
+      <div class="xlsbar">
+        <button class="btn btn-main xlsbtn" id="xls-disp" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8.2 18l2.3-3.6L8.3 11h1.9l1.4 2.4 1.4-2.4h1.8l-2.2 3.4 2.3 3.6h-1.9L11.5 15.5 10 18H8.2z"/></svg>Descargar Excel de disponibles</button>
+        <span class="xlsmsg" id="xls-msg-disp" role="status"></span>
+      </div>
       <div id="polls" style="display:flex;flex-direction:column;gap:12px"></div>
     </div>
   </section>
@@ -243,12 +250,13 @@ window.CONFIG = {
     <div style="display:flex;flex-direction:column;gap:12px">
       <div class="daypill">Lentes reservadas · quién y para qué doctor</div>
       <div class="xlsbar">
-        <button class="btn btn-main xlsbtn" id="xls-btn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8.2 18l2.3-3.6L8.3 11h1.9l1.4 2.4 1.4-2.4h1.8l-2.2 3.4 2.3 3.6h-1.9L11.5 15.5 10 18H8.2z"/></svg>Descargar Excel de reservas</button>
-        <span class="xlsmsg" id="xls-msg" role="status"></span>
+        <button class="btn btn-main xlsbtn" id="xls-res" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8.2 18l2.3-3.6L8.3 11h1.9l1.4 2.4 1.4-2.4h1.8l-2.2 3.4 2.3 3.6h-1.9L11.5 15.5 10 18H8.2z"/></svg>Descargar Excel de reservas</button>
+        <span class="xlsmsg" id="xls-msg-res" role="status"></span>
       </div>
       <div id="reslist" style="display:flex;flex-direction:column;gap:12px"></div>
     </div>
   </section>
+  <div class="ver" id="ver">Versión 23/11/2026 · stock con escáner, reservas y Excel</div>
 </main>
 
 <div class="scrim" id="scrim"></div>
@@ -391,7 +399,7 @@ function render() {
   const avail = LIST.filter((l) => !state.res[l.id]);
   const reserved = LIST.filter((l) => state.res[l.id]).sort((a, b) => (state.res[b.id].at || 0) - (state.res[a.id].at || 0));
   $("n-disp").textContent = avail.length; $("n-res").textContent = reserved.length;
-  $("xls-btn").disabled = !reserved.length;
+  $("xls-res").disabled = !reserved.length; $("xls-disp").disabled = !avail.length;
   const ls = $("lastscan"); ls.replaceChildren(el("span", "", "Último escaneo"), document.createElement("br"),
     el("b", "", state.lastScan ? new Date(state.lastScan).toLocaleString("es-ES", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" }) : "—"));
   $("hsub").textContent = state.loaded ? `${avail.length} disponibles · ${reserved.length} reservadas` : "Cargando…";
@@ -1038,45 +1046,45 @@ async function addScanned() {
 
 /* ---------- Excel de reservas ---------- */
 const XLSX_SRC = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";
-async function downloadReservas() {
-  const btn = $("xls-btn"), msg = $("xls-msg");
-  const LIST = allLenses().filter((l) => state.res[l.id]).sort((a, b) => (state.res[b.id].at || 0) - (state.res[a.id].at || 0));
-  if (!LIST.length) { msg.textContent = "No hay reservas que descargar."; return; }
+function xlsRows(kind) {
+  const LIST = allLenses();
+  if (kind === "res") {
+    return LIST.filter((l) => state.res[l.id]).sort((a, b) => (state.res[b.id].at || 0) - (state.res[a.id].at || 0)).map((l) => {
+      const r = state.res[l.id];
+      return { "Producto": "EYECRYL PHAKIC TORIC", "Talla (modelo)": l.modelo, "Esfera (D)": l.esfera, "Cilindro (D)": l.cilindro, "Eje (°)": l.eje,
+        "Nº de serie": String(l.sn), "Lote": l.lote || "", "Caducidad": l.caducidad || "", "GTIN": l.gtin || "", "Almacén": CONFIG.ALMACEN,
+        "Reservada por": r.quien || "", "Doctor": r.doctor || "", "Fecha de reserva": r.at ? new Date(r.at) : "" };
+    });
+  }
+  const base = new Set(LENTES.map((l) => String(l.id)));
+  return LIST.filter((l) => !state.res[l.id])
+    .sort((a, b) => MODELS.indexOf(a.modelo) - MODELS.indexOf(b.modelo) || num(b.esfera) - num(a.esfera) || num(a.cilindro) - num(b.cilindro) || String(a.sn).localeCompare(String(b.sn)))
+    .map((l) => ({ "Producto": "EYECRYL PHAKIC TORIC", "Talla (modelo)": l.modelo, "Esfera (D)": l.esfera, "Cilindro (D)": l.cilindro, "Eje (°)": l.eje,
+      "Nº de serie": String(l.sn), "Lote": l.lote || "", "Caducidad": l.caducidad || "", "GTIN": l.gtin || "", "Almacén": CONFIG.ALMACEN,
+      "Origen": base.has(String(l.id)) ? "Listado inicial" : "Escaneada" }));
+}
+async function downloadXlsx(kind) {
+  const btn = $(kind === "res" ? "xls-res" : "xls-disp"), msg = $(kind === "res" ? "xls-msg-res" : "xls-msg-disp");
+  const rows = xlsRows(kind);
+  const what = kind === "res" ? "reservas" : "lentes disponibles";
+  if (!rows.length) { msg.textContent = `No hay ${what} que descargar.`; setTimeout(() => { msg.textContent = ""; }, 4000); return; }
   btn.disabled = true; msg.textContent = "Preparando el Excel…";
   try {
     if (!window.XLSX) await loadScript(XLSX_SRC);
-    const fecha = (t) => t ? new Date(t) : "";
-    const rows = LIST.map((l) => {
-      const r = state.res[l.id];
-      return {
-        "Producto": "EYECRYL PHAKIC TORIC",
-        "Talla (modelo)": l.modelo,
-        "Esfera (D)": l.esfera,
-        "Cilindro (D)": l.cilindro,
-        "Eje (°)": l.eje,
-        "Nº de serie": String(l.sn),
-        "Lote": l.lote || "",
-        "Caducidad": l.caducidad || "",
-        "GTIN": l.gtin || "",
-        "Almacén": CONFIG.ALMACEN,
-        "Reservada por": r.quien || "",
-        "Doctor": r.doctor || "",
-        "Fecha de reserva": fecha(r.at)
-      };
-    });
     const ws = XLSX.utils.json_to_sheet(rows, { cellDates: true });
     const cols = Object.keys(rows[0]);
     ws["!cols"] = cols.map((k) => ({ wch: Math.max(k.length + 2, ...rows.map((r) => String(r[k] instanceof Date ? "00/00/0000 00:00" : r[k] ?? "").length + 2)) }));
     ws["!autofilter"] = { ref: XLSX.utils.encode_range({ s: { r: 0, c: 0 }, e: { r: rows.length, c: cols.length - 1 } }) };
     for (let i = 0; i < rows.length; i++) {
-      const fc = ws[XLSX.utils.encode_cell({ r: i + 1, c: cols.indexOf("Fecha de reserva") })]; if (fc && fc.t === "d") fc.z = "dd/mm/yyyy hh:mm";
+      const fi = cols.indexOf("Fecha de reserva");
+      if (fi >= 0) { const fc = ws[XLSX.utils.encode_cell({ r: i + 1, c: fi })]; if (fc && fc.t === "d") fc.z = "dd/mm/yyyy hh:mm"; }
       for (const k of ["Esfera (D)", "Cilindro (D)"]) { const c = ws[XLSX.utils.encode_cell({ r: i + 1, c: cols.indexOf(k) })]; if (c && c.t === "n") c.z = "+0.00;-0.00;0.00"; }
     }
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Reservas");
-    wb.Props = { Title: "Reservas Eyecryl Phakic Toric " + CONFIG.ALMACEN, Author: "Biotech" };
+    XLSX.utils.book_append_sheet(wb, ws, kind === "res" ? "Reservas" : "Disponibles");
+    wb.Props = { Title: (kind === "res" ? "Reservas" : "Disponibles") + " Eyecryl Phakic Toric " + CONFIG.ALMACEN, Author: "Biotech" };
     const buf = XLSX.write(wb, { bookType: "xlsx", type: "array", cellDates: true });
-    const name = `Reservas_Eyecryl_Toric_${CONFIG.ALMACEN}_${new Date().toISOString().slice(0, 10)}.xlsx`;
+    const name = `${kind === "res" ? "Reservas" : "Disponibles"}_Eyecryl_Toric_${CONFIG.ALMACEN}_${new Date().toISOString().slice(0, 10)}.xlsx`;
     let dl = null;
     try { if (window.claude && window.claude.use) dl = await window.claude.use("downloads"); } catch (e) { dl = null; }
     if (dl) {
@@ -1086,7 +1094,7 @@ async function downloadReservas() {
       const url = URL.createObjectURL(new Blob([buf], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }));
       const a = document.createElement("a"); a.href = url; a.download = name; document.body.append(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 4000);
-      msg.textContent = `Excel descargado (${LIST.length} reserva${LIST.length === 1 ? "" : "s"}).`;
+      msg.textContent = `Excel descargado (${rows.length} ${rows.length === 1 ? (kind === "res" ? "reserva" : "lente") : what}).`;
     }
   } catch (e) {
     console.error(e); msg.textContent = "No se ha podido crear el Excel. Revisa la conexión y vuelve a intentarlo.";
@@ -1109,12 +1117,14 @@ $("q").addEventListener("input", (e) => {
   if (clean !== e.target.value) e.target.value = clean;
   state.q = clean; render();
 });
-document.querySelectorAll(".chip").forEach((c) => c.addEventListener("click", () => {
-  state.filter = c.dataset.m; document.querySelectorAll(".chip").forEach((x) => x.setAttribute("aria-pressed", String(x === c))); render();
+document.querySelectorAll(".chip[data-m]").forEach((c) => c.addEventListener("click", () => {
+  state.filter = c.dataset.m; document.querySelectorAll(".chip[data-m]").forEach((x) => x.setAttribute("aria-pressed", String(x === c))); render();
 }));
 window.addEventListener("hashchange", route);
 $("scan-btn").addEventListener("click", openScan);
-$("xls-btn").addEventListener("click", downloadReservas);
+$("xls-res").addEventListener("click", () => downloadXlsx("res"));
+$("xls-disp").addEventListener("click", () => downloadXlsx("disp"));
+$("xls-chip").addEventListener("click", () => downloadXlsx(state.page === "reservadas" ? "res" : "disp"));
 $("del-1").addEventListener("click", () => { $("del-1").hidden = true; $("del-step1").hidden = false; });
 $("del-no1").addEventListener("click", delReset);
 $("del-yes1").addEventListener("click", () => { $("del-step1").hidden = true; $("del-step2").hidden = false; });
